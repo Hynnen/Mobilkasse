@@ -23,7 +23,7 @@ Se `docs/PLAN.md` for full plan og faser.
 - `lib/config.ts`: typet konfig fra env
 - `lib/woo.ts`: tynn, typet klient mot `/wp-json/wc/v3` (fetch + Basic auth, `cache: 'no-store'`)
 - `lib/money.ts`: `toOre()` / `formatKr()` (beløp alltid i øre)
-- `lib/catalog.ts`: normaliserte kassevarer (`PosItem`), lageroppslag (`resolveStock`, inkl. `manage_stock: 'parent'` og restordre) og `checkStock()` før salg
+- `lib/catalog.ts`: normaliserte kassevarer (`PosItem`, nedlastbare varer skjules), lageroppslag (`resolveStock`, inkl. `manage_stock: 'parent'` og restordre) og `checkStock()` før salg
 - `lib/auth.ts`: PIN-sjekk + signert httpOnly-cookie (HMAC med `SESSION_SECRET`, gyldig 30 dager)
 - `proxy.ts` (Next 16 sitt navn på middleware): beskytter alt unntatt `/login`, manifest, ikoner og statiske filer
 - `app/api/products` GET → produkter for kassen (inkl. varianter)

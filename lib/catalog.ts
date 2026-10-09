@@ -87,15 +87,16 @@ export function maxQuantity(item: Pick<PosItem, 'stock' | 'backorder' | 'inStock
 
 const SUPPORTED_TYPES = new Set(['simple', 'variable']);
 
+// Nedlastbare varer skjules: kasseordre har ingen kunde-e-post, så kunden ville ikke fått nedlastingslenken.
 function isSellableProduct(p: WooProduct): boolean {
-  return p.status === 'publish' && p.purchasable && SUPPORTED_TYPES.has(p.type);
+  return p.status === 'publish' && p.purchasable && !p.downloadable && SUPPORTED_TYPES.has(p.type);
 }
 
 function toPosItem(product: WooProduct, variation?: WooVariation): PosItem | null {
   if (!isSellableProduct(product)) return null;
   if (product.type === 'variable' && !variation) return null;
 
-  if (variation && (variation.status !== 'publish' || !variation.purchasable)) return null;
+  if (variation && (variation.status !== 'publish' || !variation.purchasable || variation.downloadable)) return null;
   const priceOre = toOre((variation ?? product).price);
   if (priceOre === null) return null;
 

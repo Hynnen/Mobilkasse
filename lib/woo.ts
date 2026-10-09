@@ -41,6 +41,7 @@ export type WooVariation = {
   regular_price: string;
   sale_price: string;
   purchasable: boolean;
+  downloadable: boolean;
   /** 'parent' = lageret styres på foreldreproduktet */
   manage_stock: boolean | 'parent';
   stock_quantity: number | null;

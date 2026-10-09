@@ -19,7 +19,7 @@ Selgere (på arrangementer, i resepsjonen, på forestillinger) skal kunne regist
 - [x] PIN-innlogging: `/login`, `lib/auth.ts`, `proxy.ts`
 - [x] `GET /api/products` → normalisert liste `{ id, variationId, name, variantLabel, priceOre, stock, inStock, image }`
 - [ ] Kasse-UI: produktgrid, variantvelger, sticky kurv med total
-- [ ] `POST /api/sale`: zod-validering → hent ferskt lager → opprett ordre → returner ordrenr
+- [x] `POST /api/sale`: zod-validering → hent ferskt lager → opprett ordre → returner ordrenr
 - [ ] Bekreftelsesskjerm + feilhåndtering (for lite lager, nettverksfeil)
 - [ ] PWA: dynamisk manifest fra config (navn, temafarge, ikoner), `display: standalone`
 - [ ] Butikkprofil i UI: navn/logo/temafarge fra config
