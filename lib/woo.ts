@@ -5,6 +5,8 @@ import { getConfig, type AuthMode } from './config';
 
 export type StockStatus = 'instock' | 'outofstock' | 'onbackorder';
 
+export type Backorders = 'no' | 'notify' | 'yes';
+
 export type WooImage = { id: number; src: string; alt: string };
 
 export type WooTerm = { id: number; name: string; slug: string };
@@ -19,9 +21,12 @@ export type WooProduct = {
   regular_price: string;
   sale_price: string;
   purchasable: boolean;
+  virtual: boolean;
+  downloadable: boolean;
   manage_stock: boolean;
   stock_quantity: number | null;
   stock_status: StockStatus;
+  backorders: Backorders;
   menu_order: number;
   images: WooImage[];
   categories: WooTerm[];
@@ -40,6 +45,7 @@ export type WooVariation = {
   manage_stock: boolean | 'parent';
   stock_quantity: number | null;
   stock_status: StockStatus;
+  backorders: Backorders;
   menu_order: number;
   image: WooImage | null;
   attributes: { id: number; name: string; option: string }[];

@@ -14,10 +14,10 @@ Selgere (på arrangementer, i resepsjonen, på forestillinger) skal kunne regist
 ## Fase 1: MVP
 - [x] Prosjektoppsett: Next.js, Tailwind, zod, `.env.local`, design-skills i `.claude/skills`
 - [x] `lib/config.ts`: typet og validert konfig fra env (butikk, WooCommerce, PIN)
-- [ ] `lib/woo.ts`: klient med `getPosProducts()` (inkl. varianter) og `createOrder()`
+- [x] `lib/woo.ts`: klient med `getPosProducts()` (inkl. varianter) og `createOrder()`
 - [x] Test tilkobling: enkel `/api/health` som henter 1 produkt
-- [ ] PIN-innlogging: `/login`, `lib/auth.ts`, `middleware.ts`
-- [ ] `GET /api/products` → normalisert liste `{ id, variationId, name, variantLabel, priceOre, stock, inStock, image }`
+- [x] PIN-innlogging: `/login`, `lib/auth.ts`, `proxy.ts`
+- [x] `GET /api/products` → normalisert liste `{ id, variationId, name, variantLabel, priceOre, stock, inStock, image }`
 - [ ] Kasse-UI: produktgrid, variantvelger, sticky kurv med total
 - [ ] `POST /api/sale`: zod-validering → hent ferskt lager → opprett ordre → returner ordrenr
 - [ ] Bekreftelsesskjerm + feilhåndtering (for lite lager, nettverksfeil)
