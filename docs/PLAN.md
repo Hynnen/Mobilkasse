@@ -21,8 +21,8 @@ Selgere (på arrangementer, i resepsjonen, på forestillinger) skal kunne regist
 - [x] Kasse-UI: produktgrid, variantvelger, sticky kurv med total
 - [x] `POST /api/sale`: zod-validering → hent ferskt lager → opprett ordre → returner ordrenr
 - [x] Bekreftelsesskjerm + feilhåndtering (for lite lager, nettverksfeil)
-- [ ] PWA: dynamisk manifest fra config (navn, temafarge, ikoner), `display: standalone`
-- [ ] Butikkprofil i UI: navn/logo/temafarge fra config
+- [x] PWA: dynamisk manifest fra config (navn, temafarge, ikoner), `display: standalone`
+- [x] Butikkprofil i UI: navn/logo/temafarge fra config
 - [ ] Deploy til Vercel, env-variabler, test på mobil
 
 ## Fase 2: Nyttig etter første arrangement

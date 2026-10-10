@@ -23,3 +23,14 @@ export function themeVars(themeColor: string): Record<string, string> {
   const ink = contrast(themeColor, DARK_INK) >= contrast(themeColor, LIGHT_INK) ? DARK_INK : LIGHT_INK;
   return { '--action': themeColor, '--action-ink': ink };
 }
+
+/** Varm grunn i hex (for manifest/statuslinje, der color-mix ikke støttes): 6 % temafarge i krem. */
+export function groundHex(themeColor: string): string {
+  const base = [0xfd, 0xf9, 0xf3];
+  const theme = [1, 3, 5].map((i) => parseInt(themeColor.slice(i, i + 2), 16));
+  return `#${base.map((b, i) => Math.round(b * 0.94 + theme[i] * 0.06).toString(16).padStart(2, '0')).join('')}`;
+}
+
+export function actionInk(themeColor: string): string {
+  return themeVars(themeColor)['--action-ink'];
+}

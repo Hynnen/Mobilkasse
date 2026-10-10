@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import type { CSSProperties } from 'react';
 import { getPublicStoreConfig, type StoreConfig } from '@/lib/config';
-import { themeVars } from '@/lib/theme';
+import { groundHex, themeVars } from '@/lib/theme';
+import { ServiceWorker } from '@/components/ServiceWorker';
 import './globals.css';
 
 const nunito = Nunito_Sans({
@@ -33,14 +34,17 @@ export function generateViewport(): Viewport {
     width: 'device-width',
     initialScale: 1,
     viewportFit: 'cover',
-    themeColor: '#fdf9f3',
+    themeColor: groundHex(store().themeColor),
   };
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="nb" className={`${nunito.variable} h-full antialiased`} style={themeVars(store().themeColor) as CSSProperties}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <ServiceWorker />
+      </body>
     </html>
   );
 }

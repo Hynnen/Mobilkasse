@@ -12,6 +12,12 @@ function wooImagePatterns(): URL[] {
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // Fontfilen til app-ikonene leses fra disk og må være med i serverbundlen på Vercel.
+  outputFileTracingIncludes: {
+    "/icons/[name]": ["./assets/fonts/**"],
+    "/icon": ["./assets/fonts/**"],
+    "/apple-icon": ["./assets/fonts/**"],
+  },
   images: {
     remotePatterns: wooImagePatterns(),
   },
