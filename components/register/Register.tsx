@@ -52,10 +52,11 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
     setProblemKeys(new Set());
   }, []);
 
+  /** Henter fersk vareliste fra butikken (hopper over serverens mellomlager). */
   const refresh = useCallback(async (): Promise<PosItem[] | null> => {
     setRefreshing(true);
     try {
-      const res = await fetch('/api/products', { cache: 'no-store' });
+      const res = await fetch('/api/products?fresh=1', { cache: 'no-store' });
       if (res.status === 401) {
         router.push('/login');
         return null;
@@ -117,14 +118,16 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
     if (result.ok) {
       buzz(20);
       setSuccess({ number: result.number, totalOre: result.totalOre });
+      // Trekk solgt antall lokalt; serveren oppdaterer varelisten i bakgrunnen.
+      setItems((current) => applySale(current, lines));
       dispatch({ type: 'clear' });
-      void refresh();
       return;
     }
 
     buzz([40, 60, 40]);
     if (result.error === 'insufficient_stock' && 'problems' in result) {
       setProblemKeys(new Set(result.problems.map((p) => p.key)));
+      setItems((current) => applyStockProblems(current, result.problems));
       setNotice({
         tone: 'danger',
         title: 'For lite på lager. Ingen salg er registrert.',
@@ -132,7 +135,6 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
           .map((p) => (p.reason === 'unavailable' ? `${p.name}: ikke tilgjengelig` : `${p.name}: ${p.available} igjen`))
           .join(' · '),
       });
-      void refresh();
     } else if (result.error === 'price_changed' && 'totalOre' in result) {
       await refresh();
       setNotice({
@@ -234,4 +236,26 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
       {success && <SaleSuccess orderNumber={success.number} totalOre={success.totalOre} onDone={finishSuccess} />}
     </div>
   );
+}
+
+/** Lagertall etter et fullført salg (lagerstyrte varer uten restordre). */
+function applySale(items: PosItem[], lines: CartLine[]): PosItem[] {
+  const sold = new Map(lines.map((l) => [l.item.key, l.quantity]));
+  return items.map((item) => {
+    const qty = sold.get(item.key);
+    if (!qty || item.stock === null) return item;
+    const stock = Math.max(item.stock - qty, 0);
+    return { ...item, stock, inStock: stock > 0 || item.backorder };
+  });
+}
+
+/** Ferske lagertall fra serverens sjekk når et salg ble stoppet. */
+function applyStockProblems(items: PosItem[], problems: StockProblem[]): PosItem[] {
+  const available = new Map(problems.map((p) => [p.key, p]));
+  return items.map((item) => {
+    const p = available.get(item.key);
+    if (!p) return item;
+    if (p.reason === 'unavailable') return { ...item, stock: 0, inStock: false };
+    return { ...item, stock: p.available, inStock: p.available > 0 || item.backorder };
+  });
 }

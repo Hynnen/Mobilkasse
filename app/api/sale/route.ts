@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { checkStock, invalidateCatalog, itemKey, type SaleLine, type StockProblem } from '@/lib/catalog';
+import { checkStock, expireCatalog, itemKey, refreshCatalogInBackground, type SaleLine, type StockProblem } from '@/lib/catalog';
 import { toOre } from '@/lib/money';
 import { createOrder, WooError } from '@/lib/woo';
 
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
   }
 
   if (!stock.ok) {
+    refreshCatalogInBackground();
     return json(
       { ok: false, error: 'insufficient_stock', message: 'For lite på lager.', problems: stock.problems },
       409,
@@ -72,6 +73,7 @@ export async function POST(request: Request) {
 
   // 2) Selgeren må ha vist kunden riktig beløp.
   if (stock.totalOre !== expectedTotalOre) {
+    expireCatalog(); // kassen må hente nye priser, ikke lagrede
     return json(
       { ok: false, error: 'price_changed', message: 'Prisen er endret. Sjekk beløpet med kunden.', totalOre: stock.totalOre },
       409,
@@ -85,7 +87,7 @@ export async function POST(request: Request) {
       note,
     );
 
-    invalidateCatalog(); // neste innlasting skal vise nytt lager
+    refreshCatalogInBackground(); // kassen trekker solgt antall lokalt i mellomtiden
     const wooTotalOre = toOre(order.total);
     if (wooTotalOre !== stock.totalOre) {
       console.warn(`[api/sale] Ordre ${order.number}: WooCommerce-total ${order.total} avviker fra kassens ${stock.totalOre} øre`);

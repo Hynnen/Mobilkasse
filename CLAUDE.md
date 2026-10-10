@@ -49,7 +49,7 @@ Se `docs/PLAN.md` for full plan og faser.
 - REST API validerer ikke lager ved ordreopprettelse. Sjekk ferske lagertall server-side før ordren opprettes, og returner tydelig feil ved for lite lager.
 - Ingen billing-e-post på ordren → ingen kunde-e-post sendes.
 - Angre salg: sett ordren til `cancelled` (gjenoppretter lager). Brukes fra «Siste salg»-listen.
-- Delt hosting kan svare 429 ved mange kall tett: `wooFetch` prøver GET på nytt med pause, og `getPosItems()` mellomlagres 20 s (tømmes etter salg). `checkStock()` er alltid fersk.
+- Delt hosting kan svare 429 ved mange kall tett: `wooFetch` prøver GET på nytt med pause, og `getPosItems()` ligger i delt cache (`'use cache: remote'`, tag `pos-catalog`: fersk 30 s, så stale-while-revalidate, utløper etter 1 t). Etter salg oppdateres den i bakgrunnen og kassen trekker solgt antall lokalt; «Oppdater» bruker `getPosItemsFresh()`. `checkStock()` er alltid fersk.
 - Noen hostere (f.eks. One.com) stripper Authorization-headeren. Fall da tilbake til `consumer_key`/`consumer_secret` som query-parametre (kun HTTPS).
 
 ## Design

@@ -1,4 +1,5 @@
 import 'server-only';
+import { cacheLife, cacheTag, revalidateTag } from 'next/cache';
 import { getConfig } from './config';
 import { toOre } from './money';
 import {
@@ -133,26 +134,38 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
 
 // ---------- Katalog ----------
 
-const CATALOG_TTL_MS = 20_000;
-let catalogCache: { at: number; items: Promise<PosItem[]> } | null = null;
+const CATALOG_TAG = 'pos-catalog';
 
 /**
- * Varelisten gjenbrukes i 20 s per serverinstans, så mange innlastinger på rad ikke
- * utløser 429 hos hosten. Trygt fordi checkStock() alltid henter ferske tall før salg,
- * og invalidateCatalog() kalles etter hvert salg.
+ * Varelisten ligger i Next sin delte cache («use cache: remote»), felles for alle
+ * serverinstanser. Fersk i 30 s; deretter vises lagret liste mens en ny hentes i
+ * bakgrunnen. Etter en time uten bruk venter neste åpning på fersk liste.
+ * Trygt fordi checkStock() alltid henter ferske tall før salg.
  */
-export function getPosItems(): Promise<PosItem[]> {
-  if (catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) return catalogCache.items;
-  const items = loadPosItems();
-  catalogCache = { at: Date.now(), items };
-  items.catch(() => {
-    if (catalogCache?.items === items) catalogCache = null; // ikke mellomlagre feil
-  });
-  return items;
+export async function getPosItems(): Promise<PosItem[]> {
+  'use cache: remote';
+  cacheTag(CATALOG_TAG);
+  cacheLife({ stale: 30, revalidate: 30, expire: 3600 });
+  return loadPosItems();
 }
 
-export function invalidateCatalog(): void {
-  catalogCache = null;
+/** Etter salg: hent ny liste i bakgrunnen, men vis lagret liste så lenge. */
+export function refreshCatalogInBackground(): void {
+  revalidateTag(CATALOG_TAG, 'max');
+}
+
+/** Når lagret liste ikke kan brukes (prisendring): neste kall venter på fersk liste. */
+export function expireCatalog(): void {
+  revalidateTag(CATALOG_TAG, { expire: 0 });
+}
+
+/**
+ * Fersk liste rett fra butikken, utenom cachen («Oppdater»-knappen).
+ * Ikke kombiner med expireCatalog() i samme forespørsel: da regnes også den nye
+ * cacheoppføringen som utgått, og neste kall henter alt på nytt.
+ */
+export function getPosItemsFresh(): Promise<PosItem[]> {
+  return loadPosItems();
 }
 
 /**
