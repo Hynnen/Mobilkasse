@@ -37,8 +37,9 @@ async function sign(payload: string): Promise<string> {
   return toBase64Url(await crypto.subtle.sign('HMAC', await hmacKey(), encoder.encode(payload)));
 }
 
+/** NFC-normaliserer begge sider, så «å» tastet på iPhone og Android blir likt. */
 export function verifyPin(pin: string): boolean {
-  return safeEqual(pin, getConfig().auth.pin);
+  return safeEqual(pin.normalize('NFC'), getConfig().auth.pin.normalize('NFC'));
 }
 
 /** Token: `v1.<utløp i ms>.<HMAC-SHA256 av «v1.<utløp>»>` */

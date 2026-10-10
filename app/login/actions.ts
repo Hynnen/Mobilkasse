@@ -14,7 +14,7 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
   if (!verifyPin(pin)) {
     // Bremser gjetting litt uten å gjøre det tregt for selgeren.
     await new Promise((r) => setTimeout(r, WRONG_PIN_DELAY_MS));
-    return { error: 'Feil PIN. Prøv igjen.' };
+    return { error: 'Feil kode. Prøv igjen.' };
   }
 
   (await cookies()).set(SESSION_COOKIE, await createSessionToken(), sessionCookieOptions);

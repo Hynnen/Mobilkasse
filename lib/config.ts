@@ -55,7 +55,11 @@ const envSchema = z.object({
   WOO_POS_CATEGORY: optional(z.string().trim()),
   WOO_AUTH_MODE: optional(z.enum(['auto', 'header', 'query'])),
 
-  POS_PIN: z.string().regex(/^\d{4,8}$/, { error: 'må være 4–8 sifre' }),
+  // Kode for innlogging: sifre, bokstaver eller en frase. Lang kode = vanskelig å gjette.
+  POS_PIN: z
+    .string()
+    .refine((v) => v === v.trim(), { error: 'kan ikke starte eller slutte med mellomrom' })
+    .refine((v) => v.length >= 6 && v.length <= 64, { error: 'må være 6–64 tegn' }),
   SESSION_SECRET: z.string().min(32, { error: 'må være minst 32 tegn' }),
 });
 
@@ -97,6 +101,11 @@ export function getConfig(): AppConfig {
     auth: { pin: env.POS_PIN, sessionSecret: env.SESSION_SECRET },
   };
   return cached;
+}
+
+/** Om innloggingskoden bare består av sifre (styrer tastaturet på innloggingssiden). */
+export function isNumericPin(): boolean {
+  return /^\d+$/.test(getConfig().auth.pin);
 }
 
 /** Trygt å sende til klienten (manifest, UI). */
