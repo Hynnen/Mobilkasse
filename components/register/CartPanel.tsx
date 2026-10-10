@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronUp, LoaderCircle, Minus, Plus, Trash2 } from 'lucide-react';
 import { maxQuantity, type CartLine } from '@/lib/cart';
 import { formatKr } from '@/lib/money';
+import { useScrollLock } from '@/lib/use-scroll-lock';
 
 export type CartNotice = { tone: 'danger' | 'warn'; title: string; body?: string };
 
@@ -33,6 +34,8 @@ export function CartPanel(props: Props) {
     if (problemKeys.size > 0) setOpen(true);
   }
   const expanded = open && lines.length > 0;
+  // Utvidet kurv på telefon: lås siden bak (gjelder ikke sidepanelet på store skjermer).
+  useScrollLock(expanded && typeof window !== 'undefined' && !window.matchMedia('(min-width: 1024px)').matches);
 
   return (
     <>
@@ -139,7 +142,7 @@ function Notice({ notice }: { notice: CartNotice }) {
 function CartLines({ lines, problemKeys, onInc, onDec, onRemove, onClear }: Props) {
   return (
     <>
-      <ul className="flex min-h-0 flex-col divide-y divide-line overflow-y-auto px-4 pt-2">
+      <ul className="flex min-h-0 flex-col divide-y divide-line overflow-y-auto overscroll-contain px-4 pt-2">
         {lines.map((line) => {
           const { item, quantity } = line;
           const problem = problemKeys.has(item.key);

@@ -2,13 +2,15 @@
 
 import { useEffect, useRef } from 'react';
 import { logout } from '@/app/login/actions';
+import { useScrollLock } from '@/lib/use-scroll-lock';
 
 /** Bekreftelse før utlogging: en frivillig skal ikke låse seg ute ved et feiltrykk midt i køen. */
 export function LogoutSheet({ onClose }: { onClose: () => void }) {
   const cancel = useRef<HTMLButtonElement>(null);
+  useScrollLock();
 
   useEffect(() => {
-    cancel.current?.focus();
+    cancel.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);

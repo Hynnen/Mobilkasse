@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import type { PosItem } from '@/lib/catalog';
 import { maxQuantity, type Cart } from '@/lib/cart';
 import { formatKr } from '@/lib/money';
+import { useScrollLock } from '@/lib/use-scroll-lock';
 import { stockLabel, type ProductGroup } from '@/lib/products';
 
 type Props = {
@@ -17,9 +18,10 @@ type Props = {
 /** Variantvelger som ark nedenfra: én stor knapp per variant. Lukkes etter valg. */
 export function VariantSheet({ group, cart, onPick, onClose }: Props) {
   const firstButton = useRef<HTMLButtonElement>(null);
+  useScrollLock();
 
   useEffect(() => {
-    firstButton.current?.focus();
+    firstButton.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -52,7 +54,7 @@ export function VariantSheet({ group, cart, onPick, onClose }: Props) {
           </button>
         </div>
 
-        <ul className="flex flex-col gap-2 overflow-y-auto px-4 pb-2">
+        <ul className="flex min-h-0 flex-col gap-2 overflow-y-auto overscroll-contain px-4 pb-2">
           {group.items.map((item, i) => {
             const inCart = cart[item.key] ?? 0;
             const full = inCart >= maxQuantity(item);
