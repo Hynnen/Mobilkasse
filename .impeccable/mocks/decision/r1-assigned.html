@@ -1,0 +1,47 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--steel:#2a2a2d;--board:#0e0e0f;--flap:#1b1b1d;--ink:#f5f5f0;--ink2:#a8a8a2;--lamp:#f07c23}
+body{width:390px;height:844px;overflow:hidden;background:var(--board);color:var(--ink);font-family:Barlow,sans-serif;position:relative}
+header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:2px solid var(--steel)}
+.logo{font:600 17px/1 Oswald;letter-spacing:.12em;text-transform:uppercase}
+.dot{width:10px;height:10px;border-radius:5px;background:#3fb950;box-shadow:0 0 8px #3fb95088}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.item{position:relative;background:#151516;border:1px solid #232325;border-radius:10px;overflow:hidden}
+.item.on{border-color:var(--lamp)}
+.img{aspect-ratio:4/3;background:#2b2b2e}
+.meta{padding:8px 9px 9px}
+.name{font-weight:500;font-size:15px;line-height:1.2}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.flaps{display:flex;gap:2px}
+.c{position:relative;width:17px;height:26px;background:var(--flap);border-radius:3px;font:500 19px/26px Oswald;text-align:center;font-variant-numeric:tabular-nums}
+.c:after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000}
+.stock{font-size:12px;color:var(--ink2)}
+.n{position:absolute;top:8px;left:8px;height:30px;min-width:30px;padding:0 8px;border-radius:6px;background:var(--lamp);color:#140a02;font:600 18px/30px Oswald;text-align:center}
+.sold{opacity:.38}.sold .stock{color:#d64545;opacity:1}
+.tray{position:absolute;left:0;right:0;bottom:0;background:var(--steel);padding:12px 14px 20px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;justify-content:space-between;font-size:14px;color:#cfcfc8}
+.board{background:var(--board);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
+.lbl{font:600 13px/1 Oswald;letter-spacing:.18em;color:var(--ink2)}
+.big{display:flex;gap:4px}
+.big .c{width:40px;height:62px;font-size:48px;line-height:62px;border-radius:5px}
+.big .k{width:auto;padding:0 6px;font-size:22px;color:var(--ink2);background:none}
+.big .k:after{display:none}
+.pay{height:60px;border-radius:10px;background:var(--lamp);color:#140a02;font:600 22px/60px Oswald;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+</style></head><body>
+<header><div class="logo">Huldance Merch</div><div class="dot"></div></header>
+<div class="grid">
+ <div class="item on"><div class="img"></div><div class="n">2</div><div class="meta"><div class="name">Huldance-caps</div><div class="row"><div class="flaps"><span class="c">3</span><span class="c">6</span><span class="c">9</span></div><span class="stock">3 igjen</span></div></div></div>
+ <div class="item"><div class="img" style="background:#33302b"></div><div class="meta"><div class="name">Huldance notatbok</div><div class="row"><div class="flaps"><span class="c"> </span><span class="c">9</span><span class="c">9</span></div><span class="stock">75 igjen</span></div></div></div>
+ <div class="item on"><div class="img" style="background:#2c2c33"></div><div class="n">1</div><div class="meta"><div class="name">Nøkkelring</div><div class="row"><div class="flaps"><span class="c"> </span><span class="c">7</span><span class="c">9</span></div><span class="stock">98 igjen</span></div></div></div>
+ <div class="item"><div class="img" style="background:#2b312b"></div><div class="meta"><div class="name">Ryggsekk</div><div class="row"><div class="flaps"><span class="c">6</span><span class="c">4</span><span class="c">9</span></div><span class="stock">Restordre</span></div></div></div>
+ <div class="item sold"><div class="img"></div><div class="meta"><div class="name">T-skjorte (Barn)</div><div class="row"><div class="flaps"><span class="c">3</span><span class="c">4</span><span class="c">9</span></div><span class="stock">Utsolgt</span></div></div></div>
+ <div class="item"><div class="img" style="background:#332b2b"></div><div class="meta"><div class="name">Hettegenser (Barn)</div><div class="row"><div class="flaps"><span class="c">2</span><span class="c">4</span><span class="c">9</span></div><span class="stock">18 igjen</span></div></div></div>
+</div>
+<div class="tray">
+ <div class="top"><span>3 varer</span><span>Tøm kurv</span></div>
+ <div class="board"><span class="lbl">Å BETALE</span><div class="big"><span class="c">8</span><span class="c">1</span><span class="c">7</span><span class="c k">KR</span></div></div>
+ <div class="pay">Fullfør salg</div>
+</div>
+</body></html>

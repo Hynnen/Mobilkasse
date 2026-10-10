@@ -1,0 +1,35 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--floor:#121212;--floor2:#1c1c1c;--ink:#ededed;--ink2:#a3a3a3;--tape:#f07c23}
+body{width:390px;height:844px;overflow:hidden;background:var(--floor);color:var(--ink);font-family:Archivo,sans-serif;position:relative}
+header{height:56px;display:flex;align-items:center;padding:0 16px;gap:10px;font-weight:800;font-size:18px}
+header i{display:block;width:22px;height:8px;background:var(--tape);transform:rotate(-8deg)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 12px}
+.item{position:relative;background:var(--floor2);border-radius:12px;overflow:hidden;min-height:178px}
+.img{height:108px;background:#2b2b2b}
+.meta{padding:8px 10px}
+.name{font-weight:500;font-size:15px}
+.row{display:flex;justify-content:space-between;margin-top:6px;font-variant-numeric:tabular-nums}
+.price{font-weight:700;font-size:18px}.stock{font-size:12px;color:var(--ink2)}
+.spike{position:absolute;top:10px;left:-6px;background:var(--tape);color:#1a0d02;font-weight:800;font-size:16px;padding:4px 14px 4px 14px;transform:rotate(-6deg)}
+.sold{opacity:.4}
+.tray{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 22px;background:var(--floor);border-top:1px solid #2a2a2a}
+.strip{background:var(--tape);color:#1a0d02;margin:0 -16px 12px;padding:10px 16px;display:flex;justify-content:space-between;align-items:baseline;transform:rotate(-1deg)}
+.strip b{font-size:52px;font-weight:800;font-variant-numeric:tabular-nums}
+.strip span{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.1em}
+.pay{height:60px;border-radius:12px;background:var(--ink);color:#111;font-weight:800;font-size:20px;display:grid;place-items:center}
+.sub{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);margin-bottom:8px}
+</style></head><body>
+<header><i></i>Huldance Merch</header>
+<div class="grid">
+ <div class="item"><div class="img"></div><div class="spike">×2</div><div class="meta"><div class="name">Huldance-caps</div><div class="row"><span class="price">369 kr</span><span class="stock">3 igjen</span></div></div></div>
+ <div class="item"><div class="img" style="background:#33302b"></div><div class="meta"><div class="name">Huldance notatbok</div><div class="row"><span class="price">99 kr</span><span class="stock">75 igjen</span></div></div></div>
+ <div class="item"><div class="img" style="background:#2c2c33"></div><div class="spike">×1</div><div class="meta"><div class="name">Nøkkelring</div><div class="row"><span class="price">79 kr</span><span class="stock">98 igjen</span></div></div></div>
+ <div class="item"><div class="img" style="background:#2b312b"></div><div class="meta"><div class="name">Ryggsekk</div><div class="row"><span class="price">649 kr</span><span class="stock">Restordre</span></div></div></div>
+ <div class="item sold"><div class="img"></div><div class="meta"><div class="name">T-skjorte (Barn)</div><div class="row"><span class="price">349 kr</span><span class="stock">Utsolgt</span></div></div></div>
+ <div class="item"><div class="img" style="background:#332b2b"></div><div class="meta"><div class="name">Hettegenser (Barn)</div><div class="row"><span class="price">249 kr</span><span class="stock">18 igjen</span></div></div></div>
+</div>
+<div class="tray"><div class="sub"><span>3 varer</span><span>Tøm kurv</span></div><div class="strip"><span>Totalt</span><b>817 kr</b></div><div class="pay">Fullfør salg</div></div>
+</body></html>

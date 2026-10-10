@@ -42,3 +42,8 @@ next-env.d.ts
 
 # behold eksempel-env
 !.env.example
+
+# impeccable: skjermbilder og nedlastede referanser (store, genereres på nytt)
+/.impeccable/review/
+/.impeccable/ref/
+/.impeccable/questions/

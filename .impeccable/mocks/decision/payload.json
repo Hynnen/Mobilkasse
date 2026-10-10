@@ -1,0 +1,132 @@
+{
+  "title": "Velg visuell retning for kassen",
+  "question": "Trekningen ga «Bokstavtavla i foajeen». Behold den, ta et alternativ, eller trekk på nytt.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Bokstavtavla i foajeen",
+      "kicker": "THE ROLL",
+      "lineage": "Filt-bokstavtavla med hvite plastbokstaver over kiosken i foajeen",
+      "thesis": "Kassen er prisbrettet i foajeen: hvite bokstaver på svart filt, og totalsummen settes som tavlebokstaver kunden leser fra køen.",
+      "palette": ["#161514", "#232120", "#f4f1ea", "#f07c23", "#e5484d"],
+      "materials": ["riflet svart filt", "hvite plastbokstaver", "temafarge som fargede bokstaver"],
+      "viewport": "Toppstripe med butikknavn; varer i rutenett med bilde, navn og pris i tavlebokstaver; nederst en filtstripe der totalsummen står i store tavlebokstaver ved siden av «Fullfør salg».",
+      "risk": "Kan bli kafé-kitsch hvis rillene og bokstavene brukes som pynt i stedet for bare på priser og total.",
+      "raised": [
+        { "from": "challenger-emission-rail", "raise": "Tilstander bæres av form, ikke bare farge: utsolgt er overstreket og dempet, i kurv har et antall-merke, restordre har stiplet kant." },
+        { "from": "challenger-transit", "raise": "Etiketter krymper aldri på smal skjerm; rutenettet går fra 2 til 4–5 kolonner i stedet." },
+        { "from": "challenger-console", "raise": "«Tøm kurv» og «fjern» står adskilt fra «Fullfør salg» med tydelig tomrom." },
+        { "from": "challenger-jcard", "raise": "Alle beløp er høyrejustert med tabellsifre, så kolonner av priser står rett." },
+        { "from": "challenger-saville", "raise": "Totalsummen eier bunnfeltet alene; ingenting annet konkurrerer i den stripa." }
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "model-pick",
+      "label": "Spike-tape på dansegulvet",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Svart marley-gulv i studio og på scenen, med fargede tapemerker for posisjoner",
+      "thesis": "Kassen ligger på dansegulvet: matt svart marley, og temafargen er spike-tape som markerer det som er valgt og summen.",
+      "palette": ["#121212", "#1e1e1e", "#ededed", "#f07c23", "#f5d90a"],
+      "materials": ["matt marley", "gaffateip-striper", "scenetall"],
+      "viewport": "Varer i rutenett på svart gulv; valgte varer får en tapebit i hjørnet med antall; nederst en bred tapestripe med totalsummen.",
+      "risk": "Også retningen de fleste kjøringer for en danseskole lander på: mørkt og «scenisk», og tape kan bli pynt.",
+      "html": ".impeccable/mocks/decision/model-pick.html",
+      "htmlFrame": "390x844"
+    },
+    {
+      "id": "challenger-labanotation",
+      "label": "Laban-partitur",
+      "verdict": "competitive",
+      "lineage": "Labanotation: dansens notasjon, lest nedenfra og opp langs en midtstav",
+      "thesis": "Kurven er et partitur: hver vare er en blokk på en vertikal stav, og lengden er antallet.",
+      "palette": ["#fbfaf7", "#111111", "#d9d6cf", "#f07c23"],
+      "materials": ["partiturpapir", "svarte symbolblokker", "skravert fyll"],
+      "viewport": "Varer i rutenett øverst; kurven som en stav langs høyre kant der hver vare er en blokk med høyde = antall; total under staven.",
+      "case": "Sterk gjenkjenning for danseskolen, men frivillige foreldre leser ikke notasjon; taper på tydelighet.",
+      "risk": "Staven stjeler bredde på telefon, og metaforen må forklares.",
+      "html": ".impeccable/mocks/decision/challenger-labanotation.html",
+      "htmlFrame": "390x844",
+      "hero": "https://impeccable.style/worlds/cards/notation-diagram-systems-labanotation-hero.webp"
+    },
+    {
+      "id": "challenger-emission-rail",
+      "label": "Spektrallinjer på skinne",
+      "verdict": "declined",
+      "lineage": "Spektrogram på lysbord",
+      "thesis": "Alt henger på én skinne; farge bare som hårtynne linjer.",
+      "palette": ["#2a2a2a", "#e8e2d4", "#f5c518"],
+      "materials": ["kullgrått kontinuum", "hårstreker"],
+      "viewport": "Én skinne med varer som streker.",
+      "case": "Frivillige kjenner seg ikke igjen, og tynne streker er uleselige i dempet lys.",
+      "risk": "Uleselig under stress.",
+      "kept": "Tilstand bæres av form (overstreking, stiplet, antall), ikke bare farge."
+    },
+    {
+      "id": "challenger-transit",
+      "label": "Linjekart i emalje",
+      "verdict": "declined",
+      "lineage": "T-banekart",
+      "thesis": "Varer som stasjoner på fargede linjer.",
+      "palette": ["#14213d", "#f8f8f2", "#e63946", "#f4a261"],
+      "materials": ["emalje", "linjer i 45°"],
+      "viewport": "Kategorier som linjer, varer som stasjoner.",
+      "case": "Ingen reise å vise; kartet ville bare vært pynt.",
+      "risk": "Kostyme.",
+      "kept": "Faste etikettstørrelser: rutenettet endres, teksten krymper aldri."
+    },
+    {
+      "id": "challenger-console",
+      "label": "Mørk utviklerkonsoll",
+      "verdict": "declined",
+      "lineage": "Mørke utviklerverktøy",
+      "thesis": "Grafitt-paneler med hårfine skiller.",
+      "palette": ["#1b1d21", "#2a2d33", "#c9d1d9", "#58a6ff"],
+      "materials": ["grafitt", "hårfuger"],
+      "viewport": "Paneler med varer og kurv.",
+      "case": "Verktøykostyme; føles teknisk for frivillige.",
+      "risk": "Kaldt og teknisk.",
+      "kept": "Destruktive handlinger isoleres med tomrom."
+    },
+    {
+      "id": "challenger-jcard",
+      "label": "Kassettomslag",
+      "verdict": "declined",
+      "lineage": "Håndskrevet J-kort",
+      "thesis": "Kurven som side A-spilleliste.",
+      "palette": ["#fdfdf8", "#1d3fb8", "#9a9a9a", "#d7262b"],
+      "materials": ["linjert innlegg", "kulepenn"],
+      "viewport": "Liste med håndskrift.",
+      "case": "Håndskrift er tregt å lese i kø.",
+      "risk": "Nostalgi uten funksjon.",
+      "kept": "Høyrejusterte beløp med tabellsifre."
+    },
+    {
+      "id": "challenger-saville",
+      "label": "Katalog-omslag (Factory)",
+      "verdict": "declined",
+      "lineage": "Factory Records-katalog",
+      "thesis": "Alt som katalognummer på svart.",
+      "palette": ["#0b0b0b", "#ffffff", "#e10600", "#00a1e4"],
+      "materials": ["matt svart", "hvite hårlinjer"],
+      "viewport": "Fac-nummer i stedet for navn.",
+      "case": "Koder i stedet for navn er motsatt av det en førstegangsselger trenger.",
+      "risk": "Kryptisk.",
+      "kept": "Én ting eier feltet: totalsummen står alene."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": true,
+  "canonCard": {
+    "label": "Kategoristandarden",
+    "thesis": "En ren, lys kasse slik SumUp/Square-apper ser ut, gjort skikkelig.",
+    "palette": ["#ffffff", "#f4f4f5", "#18181b", "#f07c23"],
+    "materials": ["hvitt rutenett", "produktbilder", "temafarge på hovedknapp"],
+    "viewport": "Lyse produktkort i rutenett, hvit kurvstripe nederst med total og oransje «Fullfør salg».",
+    "risk": "Kan ikke skilles fra konkurrentene, og hvitt blender i dempet foajé.",
+    "html": ".impeccable/mocks/decision/canon.html",
+    "htmlFrame": "390x844"
+  },
+  "steer": true
+}

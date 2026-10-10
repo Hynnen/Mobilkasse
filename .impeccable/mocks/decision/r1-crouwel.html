@@ -1,0 +1,29 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@700&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--paper:#fff;--grid:#dfe7fb;--ink:#111;--ink2:#5b5b5b;--plane:#f07c23}
+body{width:390px;height:844px;overflow:hidden;background:var(--paper) ;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:13px 13px;color:var(--ink);font-family:'Public Sans',sans-serif;position:relative}
+header{height:52px;display:flex;align-items:center;padding:0 13px;font-weight:700;font-size:17px;background:#fff;border-bottom:2px solid var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:13px}
+.item{background:#fff;border:2px solid var(--ink)}
+.img{height:91px;background:#ececec;border-bottom:2px solid var(--ink)}
+.meta{padding:6px 8px 8px}.name{font-weight:500;font-size:14px}
+.row{display:flex;justify-content:space-between;margin-top:5px}.price{font-weight:700;font-variant-numeric:tabular-nums}.stock{font-size:12px;color:var(--ink2)}
+.on{outline:4px solid var(--plane);outline-offset:-2px}
+.sold{opacity:.4}
+.tray{position:absolute;left:0;right:0;bottom:0;height:208px;background:var(--plane);padding:13px;display:flex;flex-direction:column;justify-content:space-between}
+.tot{font:700 96px/0.9 'Kode Mono';letter-spacing:-.02em;color:#111}
+.tot small{font-size:30px}
+.pay{height:60px;background:#111;color:#fff;display:grid;place-items:center;font-weight:700;font-size:19px}
+.sub{display:flex;justify-content:space-between;font-weight:500;font-size:14px}
+</style></head><body>
+<header>Huldance Merch</header>
+<div class="grid">
+ <div class="item on"><div class="img"></div><div class="meta"><div class="name">Huldance-caps ×2</div><div class="row"><span class="price">369 kr</span><span class="stock">3 igjen</span></div></div></div>
+ <div class="item"><div class="img"></div><div class="meta"><div class="name">Notatbok</div><div class="row"><span class="price">99 kr</span><span class="stock">75 igjen</span></div></div></div>
+ <div class="item on"><div class="img"></div><div class="meta"><div class="name">Nøkkelring ×1</div><div class="row"><span class="price">79 kr</span><span class="stock">98 igjen</span></div></div></div>
+ <div class="item"><div class="img"></div><div class="meta"><div class="name">Ryggsekk</div><div class="row"><span class="price">649 kr</span><span class="stock">Restordre</span></div></div></div>
+</div>
+<div class="tray"><div class="sub"><span>3 varer</span><span>Tøm kurv</span></div><div class="tot">817<small> kr</small></div><div class="pay">Fullfør salg</div></div>
+</body></html>

@@ -166,15 +166,36 @@ async function toWooError(res: Response, method: string, path: string): Promise<
   return new WooError(message, res.status, code);
 }
 
+const RATE_LIMIT_RETRIES = 2;
+
+/** Ventetid ved 429: Retry-After fra hosten (maks 5 s), ellers 0,8 s, 1,6 s. */
+function retryDelayMs(res: Response, attempt: number): number {
+  const header = Number(res.headers.get('Retry-After'));
+  return Number.isFinite(header) && header > 0 ? Math.min(header, 5) * 1000 : 800 * 2 ** attempt;
+}
+
+/**
+ * Delt hosting (One.com) svarer 429 når mange kall kommer tett. GET prøves på nytt
+ * med pause; skrivekall prøves aldri på nytt automatisk.
+ */
+async function requestWithRetry(path: string, opts: FetchOptions, mode: Exclude<AuthMode, 'auto'>): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    const res = await request(path, opts, mode);
+    const canRetry = (opts.method ?? 'GET') === 'GET' && attempt < RATE_LIMIT_RETRIES;
+    if (res.status !== 429 || !canRetry) return res;
+    await new Promise((r) => setTimeout(r, retryDelayMs(res, attempt)));
+  }
+}
+
 export async function wooFetch<T>(path: string, opts: FetchOptions = {}): Promise<{ data: T; headers: Headers }> {
   const configured = getConfig().woo.authMode;
   const mode = getAuthModeInUse();
 
-  let res = await request(path, opts, mode);
+  let res = await requestWithRetry(path, opts, mode);
 
   // 401 i auto-modus med header: prøv query én gang (trygt også for POST, 401 betyr at ingenting ble utført).
   if (res.status === 401 && configured === 'auto' && mode === 'header') {
-    const retry = await request(path, opts, 'query');
+    const retry = await requestWithRetry(path, opts, 'query');
     if (retry.ok) resolvedAuthMode = 'query';
     res = retry;
   } else if (res.ok && configured === 'auto' && !resolvedAuthMode) {

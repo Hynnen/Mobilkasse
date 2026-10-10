@@ -1,0 +1,47 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=390">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--felt:#161514;--felt2:#211f1d;--rib:rgba(255,255,255,.035);--ink:#f4f1ea;--ink2:#b9b3a8;--theme:#f07c23;--out:#6b665f}
+body{width:390px;height:844px;overflow:hidden;background:var(--felt);color:var(--ink);font-family:Barlow,sans-serif;position:relative}
+.felt{background-color:var(--felt);background-image:linear-gradient(to bottom,transparent 0 13px,var(--rib) 13px 14px);background-size:100% 14px}
+header{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #2c2926}
+.logo{font:700 20px/1 'Barlow Condensed';letter-spacing:.08em;text-transform:uppercase}
+.logo b{color:var(--theme)}
+.menu{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--ink2)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 12px 0}
+.item{position:relative;border-radius:14px;background:var(--felt2);overflow:hidden;min-height:176px;display:flex;flex-direction:column}
+.img{height:104px;background:#3a3631}
+.meta{padding:8px 10px 10px;display:flex;flex-direction:column;gap:2px;flex:1}
+.name{font:500 15px/1.2 Barlow;color:var(--ink)}
+.var{font-size:13px;color:var(--ink2)}
+.row{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline}
+.price{font:600 22px/1 'Barlow Condensed';letter-spacing:.06em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.stock{font-size:12px;color:var(--ink2)}
+.count{position:absolute;top:8px;right:8px;min-width:32px;height:32px;padding:0 8px;border-radius:16px;background:var(--theme);color:#1a0d02;font:700 18px/32px 'Barlow Condensed';text-align:center}
+.sold{opacity:.42}.sold .price{text-decoration:line-through}
+.sold .stock{color:var(--ink)}
+.bo{outline:1.5px dashed #8d877d;outline-offset:-1.5px}
+.tray{position:absolute;left:0;right:0;bottom:0;height:176px;border-top:1px solid #34302c;padding:12px 16px 20px;display:flex;flex-direction:column;gap:10px}
+.lines{font-size:14px;color:var(--ink2);display:flex;justify-content:space-between}
+.total{display:flex;align-items:flex-end;justify-content:space-between}
+.tlabel{font:600 14px/1 'Barlow Condensed';letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.tsum{font:700 60px/.9 'Barlow Condensed';letter-spacing:.05em;font-variant-numeric:tabular-nums}
+.tsum span{font-size:30px;color:var(--ink2);margin-left:4px}
+.pay{height:60px;border-radius:14px;background:var(--theme);color:#1a0d02;font:700 22px/60px 'Barlow Condensed';letter-spacing:.1em;text-transform:uppercase;text-align:center}
+</style></head><body class="felt">
+<header><div class="logo">Huldance <b>Merch</b></div><div class="menu">≡</div></header>
+<div class="grid">
+ <div class="item"><div class="img" style="background:#2d2f33"></div><div class="count">2</div><div class="meta"><div class="name">Huldance-caps</div><div class="var">2 farger</div><div class="row"><div class="price">369,-</div><div class="stock">3 igjen</div></div></div></div>
+ <div class="item"><div class="img" style="background:#47413a"></div><div class="meta"><div class="name">Huldance notatbok</div><div class="var">Gul · Sort</div><div class="row"><div class="price">99,-</div><div class="stock">75 igjen</div></div></div></div>
+ <div class="item"><div class="img" style="background:#3c3a40"></div><div class="count">1</div><div class="meta"><div class="name">Nøkkelring</div><div class="var">&nbsp;</div><div class="row"><div class="price">79,-</div><div class="stock">98 igjen</div></div></div></div>
+ <div class="item bo"><div class="img" style="background:#353a33"></div><div class="meta"><div class="name">Ryggsekk</div><div class="var">Restordre</div><div class="row"><div class="price">649,-</div><div class="stock">0 på lager</div></div></div></div>
+ <div class="item sold"><div class="img"></div><div class="meta"><div class="name">T-skjorte (Barn)</div><div class="var">3 størrelser</div><div class="row"><div class="price">349,-</div><div class="stock">Utsolgt</div></div></div></div>
+ <div class="item"><div class="img" style="background:#3a3533"></div><div class="meta"><div class="name">Hettegenser (Barn)</div><div class="var">4 varianter</div><div class="row"><div class="price">249,-</div><div class="stock">18 igjen</div></div></div></div>
+</div>
+<div class="tray felt">
+ <div class="lines"><span>3 varer</span><span>Tøm kurv</span></div>
+ <div class="total"><div class="tlabel">Å betale</div><div class="tsum">817<span>KR</span></div></div>
+ <div class="pay">Fullfør salg</div>
+</div>
+</body></html>

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { checkStock, itemKey, type SaleLine, type StockProblem } from '@/lib/catalog';
+import { checkStock, invalidateCatalog, itemKey, type SaleLine, type StockProblem } from '@/lib/catalog';
 import { toOre } from '@/lib/money';
 import { createOrder, WooError } from '@/lib/woo';
 
@@ -85,6 +85,7 @@ export async function POST(request: Request) {
       note,
     );
 
+    invalidateCatalog(); // neste innlasting skal vise nytt lager
     const wooTotalOre = toOre(order.total);
     if (wooTotalOre !== stock.totalOre) {
       console.warn(`[api/sale] Ordre ${order.number}: WooCommerce-total ${order.total} avviker fra kassens ${stock.totalOre} øre`);

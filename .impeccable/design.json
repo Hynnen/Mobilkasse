@@ -1,0 +1,464 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T21:42:43+00:00",
+  "title": "Design System: Mobilkasse",
+  "extensions": {
+    "colorMeta": {
+      "action": {
+        "role": "primary",
+        "displayName": "Butikkens handlingsfarge",
+        "canonical": "var(--action) ← STORE_THEME_COLOR (Huldance #f07c23)",
+        "tonalRamp": [
+          "#1e0200",
+          "#431200",
+          "#6c2800",
+          "#983f00",
+          "#cb5a00",
+          "#e98849",
+          "#ffb585",
+          "#ffdfb9"
+        ]
+      },
+      "action-ink": {
+        "role": "primary",
+        "displayName": "Tekst på handlingsfarge",
+        "canonical": "var(--action-ink) ← themeVars(): #24170e eller #ffffff etter kontrast",
+        "tonalRamp": [
+          "#0f0a07",
+          "#2a221e",
+          "#483d37",
+          "#685b52",
+          "#8d7c71",
+          "#b0a198",
+          "#d4c8c0",
+          "#f6ece6"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Varm krem-grunn",
+        "canonical": "color-mix(in oklab, var(--action) 6%, #fdf9f3)",
+        "tonalRamp": [
+          "#100a04",
+          "#2a221b",
+          "#473e36",
+          "#655c53",
+          "#887e75",
+          "#ada399",
+          "#d3c8bf",
+          "#f7ece2"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Tonet flate",
+        "canonical": "color-mix(in oklab, var(--action) 9%, #f6efe6)",
+        "tonalRamp": [
+          "#0e0a07",
+          "#29231d",
+          "#473e36",
+          "#685b50",
+          "#8d7d6f",
+          "#b0a296",
+          "#d4c8be",
+          "#f6ede5"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Hvitt kort",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Varm mørkebrun",
+        "canonical": "#2a211b",
+        "tonalRamp": [
+          "#110905",
+          "#2b221c",
+          "#473d37",
+          "#665b54",
+          "#897e76",
+          "#aea29a",
+          "#d4c8c0",
+          "#f8ece3"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Dempet brun",
+        "canonical": "#6f6259",
+        "tonalRamp": [
+          "#0e0a08",
+          "#28231f",
+          "#463e38",
+          "#665b54",
+          "#8b7d74",
+          "#aea29a",
+          "#d2c8c2",
+          "#f5ede7"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Varm skillelinje",
+        "canonical": "#eadfd3",
+        "tonalRamp": [
+          "#0d0b08",
+          "#27231f",
+          "#453f38",
+          "#645c54",
+          "#887e74",
+          "#aca39a",
+          "#d0c9c1",
+          "#f3ede7"
+        ]
+      },
+      "success": {
+        "role": "status",
+        "displayName": "Bekreftelsesgrønn",
+        "canonical": "#1f7a4d",
+        "tonalRamp": [
+          "#001005",
+          "#042c18",
+          "#154b2f",
+          "#286d48",
+          "#3e9465",
+          "#72b68d",
+          "#a4d9b7",
+          "#d1fbe0"
+        ]
+      },
+      "success-ground": {
+        "role": "status",
+        "displayName": "Lys bekreftelsesgrønn",
+        "canonical": "#e5f4ea",
+        "tonalRamp": [
+          "#090c0a",
+          "#202622",
+          "#3a423d",
+          "#56615a",
+          "#77847b",
+          "#9ca8a0",
+          "#c4cdc7",
+          "#e9f1ec"
+        ]
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Varselrød",
+        "canonical": "#b4321f",
+        "tonalRamp": [
+          "#1f0000",
+          "#460c05",
+          "#702014",
+          "#9e3626",
+          "#d24f3a",
+          "#f0806c",
+          "#ffaf9d",
+          "#ffdacb"
+        ]
+      },
+      "danger-ground": {
+        "role": "status",
+        "displayName": "Lys varselrød",
+        "canonical": "#fbe9e5",
+        "tonalRamp": [
+          "#0e0a09",
+          "#292221",
+          "#473d3b",
+          "#675a58",
+          "#8c7c79",
+          "#afa19e",
+          "#d3c8c5",
+          "#f5ecea"
+        ]
+      },
+      "warn-ink": {
+        "role": "status",
+        "displayName": "Advarselsbrun",
+        "canonical": "#7a4b00",
+        "tonalRamp": [
+          "#150800",
+          "#341f03",
+          "#573812",
+          "#7c5424",
+          "#a67538",
+          "#c79b6b",
+          "#e7c39c",
+          "#ffe9cb"
+        ]
+      },
+      "warn-ground": {
+        "role": "status",
+        "displayName": "Advarselsgul",
+        "canonical": "#fdf1d8",
+        "tonalRamp": [
+          "#0e0b06",
+          "#28231a",
+          "#453f31",
+          "#655d4b",
+          "#8a7f69",
+          "#ada490",
+          "#d1caba",
+          "#f4eee1"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-sale": {
+        "displayName": "Display (salg)",
+        "purpose": "Beløpet på grønn bekreftelsesskjerm."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Totalsummen i kurven, lesbar på armlengdes avstand."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Sideoverskrifter: innlogging, «Salg registrert», feilside."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Butikknavn i toppfelt, «Kurv», overskrift i ark."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Hovedknapper."
+      },
+      "body-strong": {
+        "displayName": "Body strong",
+        "purpose": "Priser og antall."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Produktnavn, kurvlinjer, varsler."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Lager- og variantantall, enhetspris."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-card",
+        "value": "0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06)",
+        "purpose": "Hvile-skygge for kort, ikonknapper, hovedknapper, PIN-felt og antall-chip."
+      },
+      {
+        "name": "shadow-float",
+        "value": "0 -2px 6px rgb(80 50 20 / 0.04), 0 -12px 32px rgb(80 50 20 / 0.10)",
+        "purpose": "Oppoverkastet skygge for kurvkapsel/-panel og bunnark som ligger over innholdet."
+      }
+    ],
+    "motion": [
+      {
+        "name": "spring",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Fjær tilbake etter trykk (press, 220 ms; inn 90 ms til scale 0.965)."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Inngangsanimasjoner: pop-in 320 ms (antall-chip), roll-in 260 ms (totalsum), sheet-up 340 ms (ark), fade-in 200 ms (bakteppe), success-in 480 ms (hake)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "1ms",
+        "purpose": "Alle animasjoner og overganger kollapser under prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primærknapp",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Fullbredde pille i handlingsfargen for hovedhandlingen («Fullfør salg», «Logg inn»).",
+      "html": "<button class=\"ds-btn-primary ds-press\">Fullfør salg</button>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-btn-primary{font-family:'Nunito Sans',system-ui,sans-serif;display:flex;align-items:center;justify-content:center;width:100%;height:64px;border:none;border-radius:9999px;background:var(--action,#f07c23);color:var(--action-ink,#24170e);font-size:19px;font-weight:800;box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-btn-primary:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;} .ds-btn-primary:disabled{background:var(--surface,#f7e5d6);color:var(--ink-2,#6f6259);box-shadow:none;cursor:default;}"
+    },
+    {
+      "name": "Deaktivert primærknapp",
+      "kind": "button",
+      "refersTo": "button-primary-disabled",
+      "description": "Hovedknappen når kurven er tom: synlig, men lokker ikke.",
+      "html": "<button class=\"ds-btn-primary-off\" disabled>Fullfør salg</button>",
+      "css": ".ds-btn-primary-off{font-family:'Nunito Sans',system-ui,sans-serif;width:100%;height:64px;border:none;border-radius:9999px;background:var(--surface,#f7e5d6);color:var(--ink-2,#6f6259);font-size:19px;font-weight:800;}"
+    },
+    {
+      "name": "Faretekstknapp",
+      "kind": "button",
+      "refersTo": "button-text-danger",
+      "description": "Destruktiv sekundærhandling uten bakgrunn («Tøm kurv», «Logg ut»).",
+      "html": "<button class=\"ds-btn-danger ds-press\">Tøm kurv</button>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-btn-danger{font-family:'Nunito Sans',system-ui,sans-serif;min-height:48px;padding:0 16px;border:none;border-radius:9999px;background:transparent;color:var(--danger,#b4321f);font-size:15px;font-weight:700;} .ds-btn-danger:hover{background:var(--danger-ground,#fbe9e5);} .ds-btn-danger:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;}"
+    },
+    {
+      "name": "Ikonknapp",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "48 px hvit sirkel i toppfeltet (oppdater, logg ut) og lukk-knapp i ark.",
+      "html": "<button class=\"ds-btn-icon ds-press\" aria-label=\"Oppdater varer og lager\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\"/><path d=\"M8 16H3v5\"/></svg></button>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-btn-icon{display:grid;place-items:center;width:48px;height:48px;border:none;border-radius:9999px;background:var(--card,#fff);color:var(--ink,#2a211b);box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-btn-icon:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;}"
+    },
+    {
+      "name": "Produktkort",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "Signaturkortet: innfelt bilde, navn, pris og lager; ring og antall-chip i handlingsfargen når varen er i kurven.",
+      "html": "<button class=\"ds-product ds-press ds-in-cart\"><span class=\"ds-product-img\"></span><span class=\"ds-chip\">2</span><span class=\"ds-product-body\"><span class=\"ds-product-name\">Nøkkelring</span><span class=\"ds-product-row\"><span class=\"ds-price\">79 kr</span><span class=\"ds-stock\">98 igjen</span></span></span></button>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-product{font-family:'Nunito Sans',system-ui,sans-serif;position:relative;display:flex;flex-direction:column;width:200px;min-height:192px;padding:0;border:none;border-radius:20px;background:var(--card,#fff);color:var(--ink,#2a211b);text-align:left;box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);overflow:hidden;} .ds-product:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;} .ds-in-cart{box-shadow:0 0 0 2px var(--action,#f07c23),0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-product-img{display:block;margin:6px;aspect-ratio:16/11;border-radius:15px;background:var(--surface,#f7e5d6);} .ds-chip{position:absolute;top:12px;right:12px;display:grid;place-items:center;height:36px;min-width:36px;padding:0 10px;box-sizing:border-box;border-radius:9999px;background:var(--action,#f07c23);color:var(--action-ink,#24170e);font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-product-body{display:flex;flex-direction:column;flex:1;padding:2px 12px 10px;} .ds-product-name{font-size:15px;font-weight:700;line-height:1.375;} .ds-product-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:4px;} .ds-price{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;} .ds-stock{font-size:13px;color:var(--ink-2,#6f6259);font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Kurvkapsel",
+      "kind": "custom",
+      "refersTo": "cart-float",
+      "description": "Flytende hvit kurv nederst på telefon: antall varer, totalsum i display-størrelse og hovedknapp.",
+      "html": "<section class=\"ds-cart\"><div class=\"ds-cart-row\"><span class=\"ds-cart-count\">2 varer</span><span class=\"ds-total\">158 kr</span></div><button class=\"ds-btn-primary ds-press\">Fullfør salg</button></section>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-cart{font-family:'Nunito Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:12px;width:340px;padding:12px 16px 16px;border-radius:26px;background:var(--card,#fff);color:var(--ink,#2a211b);box-shadow:0 -2px 6px rgb(80 50 20 / 0.04), 0 -12px 32px rgb(80 50 20 / 0.10);} .ds-cart-row{display:flex;justify-content:space-between;align-items:center;min-height:48px;} .ds-cart-count{font-size:15px;font-weight:700;color:var(--ink-2,#6f6259);} .ds-total{font-size:44px;font-weight:800;line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;} .ds-btn-primary{font-family:'Nunito Sans',system-ui,sans-serif;height:64px;border:none;border-radius:9999px;background:var(--action,#f07c23);color:var(--action-ink,#24170e);font-size:19px;font-weight:800;box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-btn-primary:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;}"
+    },
+    {
+      "name": "Antallsvelger",
+      "kind": "custom",
+      "refersTo": "stepper",
+      "description": "Pille i tonet flate med 48 px − og + for antall på en kurvlinje.",
+      "html": "<div class=\"ds-stepper\"><button class=\"ds-step ds-press\" aria-label=\"Ta bort én\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"><path d=\"M5 12h14\"/></svg></button><span class=\"ds-qty\">1</span><button class=\"ds-step ds-press\" aria-label=\"Legg til én\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg></button></div>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-stepper{font-family:'Nunito Sans',system-ui,sans-serif;display:inline-flex;align-items:center;border-radius:9999px;background:var(--surface,#f7e5d6);color:var(--ink,#2a211b);} .ds-step{display:grid;place-items:center;width:48px;height:48px;border:none;border-radius:9999px;background:transparent;color:inherit;} .ds-step:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;} .ds-qty{width:28px;text-align:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Variantrad",
+      "kind": "custom",
+      "refersTo": "variant-row",
+      "description": "Én stor rad per variant i bunnarket.",
+      "html": "<button class=\"ds-variant ds-press\"><span class=\"ds-variant-text\"><span class=\"ds-variant-name\">M · Svart</span><span class=\"ds-variant-stock\">4 igjen</span></span><span class=\"ds-variant-price\">299 kr</span></button>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-variant{font-family:'Nunito Sans',system-ui,sans-serif;display:flex;align-items:center;gap:12px;width:320px;min-height:64px;padding:12px 16px;border:none;border-radius:18px;background:var(--card,#fff);color:var(--ink,#2a211b);text-align:left;box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-variant:focus-visible{outline:3px solid color-mix(in oklab, var(--action, #f07c23) 70%, var(--ink, #2a211b));outline-offset:2px;} .ds-variant-text{flex:1;display:flex;flex-direction:column;} .ds-variant-name{font-size:17px;font-weight:700;} .ds-variant-stock{font-size:13px;color:var(--ink-2,#6f6259);} .ds-variant-price{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "PIN-felt",
+      "kind": "input",
+      "refersTo": "input-pin",
+      "description": "Stort sentrert PIN-felt på innlogging; ring i handlingsfargen ved fokus, rød ved feil.",
+      "html": "<input class=\"ds-pin\" type=\"password\" inputmode=\"numeric\" placeholder=\"••••\" aria-label=\"PIN-kode\">",
+      "css": ".ds-pin{font-family:'Nunito Sans',system-ui,sans-serif;width:280px;height:64px;padding:0 16px;border:none;border-radius:20px;background:var(--card,#fff);color:var(--ink,#2a211b);text-align:center;font-size:30px;letter-spacing:0.5em;font-variant-numeric:tabular-nums;caret-color:var(--action,#f07c23);box-shadow:0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);outline:none;} .ds-pin:focus{box-shadow:0 0 0 2px var(--action,#f07c23),0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);} .ds-pin[aria-invalid=true]{box-shadow:0 0 0 2px var(--danger,#b4321f),0 1px 2px rgb(80 50 20 / 0.05), 0 6px 18px rgb(80 50 20 / 0.06);}"
+    },
+    {
+      "name": "Varsel",
+      "kind": "custom",
+      "refersTo": "notice-danger",
+      "description": "Feil i salgsflyten, vist i kurven over totalsummen.",
+      "html": "<div class=\"ds-notice\" role=\"alert\"><p class=\"ds-notice-title\">For lite på lager. Ingen salg er registrert.</p><p class=\"ds-notice-body\">Huldance-caps: 1 igjen</p></div>",
+      "css": ".ds-notice{font-family:'Nunito Sans',system-ui,sans-serif;width:300px;padding:12px 16px;border-radius:16px;background:var(--danger-ground,#fbe9e5);color:var(--danger,#b4321f);} .ds-notice p{margin:0;} .ds-notice-title{font-size:15px;font-weight:700;} .ds-notice-body{margin-top:2px !important;font-size:14px;line-height:1.375;}"
+    },
+    {
+      "name": "Salgsbekreftelse",
+      "kind": "custom",
+      "refersTo": "success-screen",
+      "description": "Grønn fullskjerm etter fullført salg med beløp, ordrenummer og «Neste kunde».",
+      "html": "<div class=\"ds-success\"><div class=\"ds-success-mark\"><svg width=\"56\" height=\"56\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 6 9 17l-5-5\"/></svg></div><p class=\"ds-success-title\">Salg registrert</p><p class=\"ds-success-amount\">158 kr</p><p class=\"ds-success-order\">Ordre 4821</p><button class=\"ds-success-btn ds-press\">Neste kunde</button></div>",
+      "css": ".ds-press{transition:transform 220ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 220ms cubic-bezier(0.16,1,0.3,1);cursor:pointer;} .ds-press:active:not(:disabled){transform:scale(0.965);transition-duration:90ms;} .ds-success{font-family:'Nunito Sans',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:12px;width:320px;padding:32px 24px;border-radius:26px;background:var(--success,#1f7a4d);color:#fff;text-align:center;} .ds-success p{margin:0;} .ds-success-mark{display:grid;place-items:center;width:112px;height:112px;border-radius:9999px;background:#fff;color:var(--success,#1f7a4d);} .ds-success-title{font-size:30px;font-weight:800;} .ds-success-amount{font-size:60px;font-weight:800;line-height:1;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;} .ds-success-order{font-size:18px;font-weight:600;color:rgb(255 255 255 / 0.85);} .ds-success-btn{font-family:'Nunito Sans',system-ui,sans-serif;width:100%;height:64px;margin-top:12px;border:none;border-radius:9999px;background:#fff;color:var(--success,#1f7a4d);font-size:19px;font-weight:800;} .ds-success-btn:focus-visible{outline:3px solid #fff;outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Varm disk, én farge å trykke på",
+    "overview": "**Creative North Star: \"Varm disk, én farge å trykke på\"**\n\nMobilkasse er en varm forbruker-app, ikke et kasseapparat. Skjermen er en lys, kremtonet grunn med hvite, myke kort som hviler på den med en varm, diffus skygge. Det finnes bare én sterk farge, butikkens egen temafarge, og den betyr alltid «dette kan du trykke på» eller «dette er valgt». Alt annet er varm brun tekst på krem og hvitt.\n\nTemafargen er per butikk (white-label, `STORE_THEME_COLOR`), ikke en fast merkevarefarge. Huldance bruker oransje (#f07c23), og alle verdier i frontmatter er løst mot den. Grunnen og flatene blandes mot temafargen med `color-mix(in oklab, …)`, slik at hele appen tones lett mot butikken uten at noe annet enn handlinger får full farge. Teksten på temafargen (`--action-ink`) velges automatisk i `lib/theme.ts`: mørk brun (#24170e) eller hvit, etter hva som gir best kontrast.\n\nTettheten er lav og trykkflatene store: dette skal brukes med én hånd i en mørk foajé, av en frivillig som aldri har sett appen før. Bevegelser er myke fjærer: kort som gir etter når du trykker, en antall-chip som spretter inn, en totalsum som ruller opp til nytt beløp.",
+    "keyCharacteristics": [
+      "Varm krem-grunn tonet mot butikkens temafarge, hvite kort oppå",
+      "Én handlingsfarge, kun på handlinger og aktivt valgt",
+      "Ett avrundet humanistisk skriftsnitt (Nunito Sans) i tunge vekter",
+      "Store, myke former: 20 px kort, pilleknapper, ark med 28 px hjørner",
+      "Myk fjær-trykk på alt som kan trykkes",
+      "Totalsummen er det største på skjermen, i tabelltall"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Handlingsfargen brukes bare på det som kan trykkes eller er valgt. Aldri på overskrifter, ikoner i ro, bakgrunner eller dekor.",
+        "section": "colors"
+      },
+      {
+        "name": "The Store Owns the Hue Rule",
+        "body": "Ingen komponent kan anta at handlingsfargen er oransje. Alt må fungere med en vilkårlig temafarge; tekst på den hentes alltid fra `action-ink`, og grunn/flate avledes med `color-mix` i stedet for faste krem-verdier.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sold-Out Loses Color Rule",
+        "body": "Utsolgte varer vises, men mister fargen: bildet blir gråtonet og nedtonet (45 %), teksten nedtonet (55 %), og merkelappen «Utsolgt» står i full `ink` så tilstanden ikke bæres av farge alene.",
+        "section": "colors"
+      },
+      {
+        "name": "The Amount Is the Headline Rule",
+        "body": "Totalsummen er alltid det største elementet i kurven (minst 44 px, 800, tabelltall), og den ruller inn på nytt hver gang beløpet endres.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Hele appen bruker Nunito Sans. Hierarki lages med størrelse og vekt (400/700/800), ikke med en ekstra font.",
+        "section": "typography"
+      },
+      {
+        "name": "The Thumb Zone Rule",
+        "body": "Totalsum og «Fullfør salg» står alltid nederst, nær tommelen, på alle skjermstørrelser.",
+        "section": "layout"
+      },
+      {
+        "name": "The Warm Shadow Rule",
+        "body": "Skygger er alltid varmtonet og myke. Ingen harde forskjøvne skygger, ingen nøytralgrå.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Nested Radius Rule",
+        "body": "Et element som ligger innfelt i et avrundet kort har radius lik kortets radius minus innfellingen (20 − 6 ≈ 15 px).",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** hent all handlingsfarge fra `--action` / `--action-ink`, og test nye flater med minst én lys og én mørk temafarge.",
+      "**Do** avled nye tonede flater med `color-mix(in oklab, var(--action) N%, <krem>)` i stedet for faste krem-hex.",
+      "**Do** gi alt som kan trykkes `press`-fjæren og minst 48 px trykkflate (64 px for primærhandlinger).",
+      "**Do** bruk tabelltall på alle beløp og antall.",
+      "**Do** bær tilstander med mer enn farge: tekst («Utsolgt», «Alle i kurven»), ring, overstreking eller nedtoning.",
+      "**Do** respekter `prefers-reduced-motion`: alle animasjoner kollapser til 1 ms."
+    ],
+    "donts": [
+      "**Don't** bruk handlingsfargen på overskrifter, dekor, bakgrunner eller ikoner som ikke kan trykkes.",
+      "**Don't** hardkod oransje (#f07c23) eller hvit/svart tekst på handlingsfargen i komponenter.",
+      "**Don't** skjul utsolgte varer; grå dem ut og sorter dem sist.",
+      "**Don't** legg kantlinjer rundt kort eller bruk grå/svarte skygger; dybde er varm skygge på tonet grunn.",
+      "**Don't** bruk toasts for feil i salgsflyten; varsler står i kurven, ved siden av beløpet de gjelder.",
+      "**Don't** innfør en ny font eller en ny mettet farge ved siden av handlingsfargen og statusfargene."
+    ]
+  }
+}

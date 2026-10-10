@@ -133,11 +133,33 @@ async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T) => Promis
 
 // ---------- Katalog ----------
 
+const CATALOG_TTL_MS = 20_000;
+let catalogCache: { at: number; items: Promise<PosItem[]> } | null = null;
+
+/**
+ * Varelisten gjenbrukes i 20 s per serverinstans, så mange innlastinger på rad ikke
+ * utløser 429 hos hosten. Trygt fordi checkStock() alltid henter ferske tall før salg,
+ * og invalidateCatalog() kalles etter hvert salg.
+ */
+export function getPosItems(): Promise<PosItem[]> {
+  if (catalogCache && Date.now() - catalogCache.at < CATALOG_TTL_MS) return catalogCache.items;
+  const items = loadPosItems();
+  catalogCache = { at: Date.now(), items };
+  items.catch(() => {
+    if (catalogCache?.items === items) catalogCache = null; // ikke mellomlagre feil
+  });
+  return items;
+}
+
+export function invalidateCatalog(): void {
+  catalogCache = null;
+}
+
 /**
  * Alle salgbare varer for kassen, inkl. varianter. Utsolgte varer tas med
  * (de vises grået ut). Rekkefølge: produktenes menu_order, ellers butikkens standard.
  */
-export async function getPosItems(): Promise<PosItem[]> {
+async function loadPosItems(): Promise<PosItem[]> {
   const { posCategory } = getConfig().woo;
 
   let filter = {};
@@ -151,7 +173,7 @@ export async function getPosItems(): Promise<PosItem[]> {
     .filter(isSellableProduct)
     .sort((a, b) => a.menu_order - b.menu_order);
 
-  const perProduct = await mapLimit(products, 4, async (product) => {
+  const perProduct = await mapLimit(products, 2, async (product) => {
     if (product.type !== 'variable') return [toPosItem(product)];
     const variations = (await listVariations(product.id)).sort((a, b) => a.menu_order - b.menu_order);
     return variations.map((v) => toPosItem(product, v));

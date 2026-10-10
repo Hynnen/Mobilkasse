@@ -1,0 +1,108 @@
+{
+  "title": "Velg visuell retning for kassen (ny trekning, dristigere)",
+  "question": "Ny trekning ledes av «Avgangstavla». Behold den, ta et alternativ, eller trekk på nytt.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Avgangstavla",
+      "kicker": "THE ROLL",
+      "lineage": "Split-flap-tavla på jernbanestasjonen: svarte klaffer med hvite tegn i faste celler",
+      "thesis": "Totalsummen er en avgangstavle: når en vare legges til, klaffer sifrene seg om til nytt beløp, og hele køen kan lese det.",
+      "palette": ["#0e0e0f", "#1b1b1d", "#2a2a2d", "#f5f5f0", "#f07c23", "#d64545"],
+      "materials": ["matte svarte klaffer", "hvit malt skrift", "stålramme", "lampe i temafarge"],
+      "viewport": "Smal topplinje; varer i rutenett der prisen står i klaffeceller; nederst en tavle med totalsummen i store klaffesifre over «Fullfør salg».",
+      "risk": "Klaffeanimasjon kan føles treg hvis den ikke er rask og kun på totalen; for mange celler blir kostyme.",
+      "raised": [
+        { "from": "challenger-orienteering", "raise": "Temafargen er reservert for det som er aktivt: varer i kurven og hovedknappen, ingenting annet." },
+        { "from": "challenger-zoo", "raise": "Én bevegelsesgrammatikk: alt som beveger seg bruker samme tid og ett lite overslag." },
+        { "from": "challenger-botanical", "raise": "Alle produktbilder har samme utsnitt og skala, så rutenettet står rolig." }
+      ],
+      "html": ".impeccable/mocks/decision/r1-assigned.html",
+      "htmlFrame": "390x844",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse.webp"
+    },
+    {
+      "id": "challenger-crouwel",
+      "label": "Rutenett-spesimen (Crouwel)",
+      "verdict": "competitive",
+      "lineage": "Wim Crouwels rutenettkonstruerte typeplakater",
+      "thesis": "Kassen står på et synlig konstruksjonsrutenett, og totalsummen er monumentale sifre bygget av cellene.",
+      "palette": ["#ffffff", "#e8eefc", "#111111", "#f07c23"],
+      "materials": ["millimeterpapir-rutenett", "konstruerte sifre", "ett aksentplan"],
+      "viewport": "Varer låst til hele rutenettceller; totalen nederst som store rutenettsifre på et oransje plan.",
+      "case": "Sterk og tydelig totalsum, men hvit flate blender i dempet foajé.",
+      "risk": "Lys bakgrunn i mørk foajé; rutenettet kan bli pynt.",
+      "html": ".impeccable/mocks/decision/r1-crouwel.html",
+      "htmlFrame": "390x844",
+      "hero": "https://impeccable.style/worlds/cards/crouwel-grid-specimen-hero.webp"
+    },
+    {
+      "id": "challenger-warm-app",
+      "label": "Varm forbruker-app",
+      "verdict": "competitive",
+      "lineage": "Vennlige forbrukerapper med myke kort og én handlingsfarge",
+      "thesis": "Myke kort på varm bakgrunn, og den ene sterke fargen er alltid noe du kan trykke på.",
+      "palette": ["#f6f1ea", "#ffffff", "#2a2420", "#f07c23"],
+      "materials": ["varm tonet grunn", "hvite kort", "store radier"],
+      "viewport": "Kort i rutenett på varm grunn; hvit kurvbjelke nederst med stor total og oransje knapp.",
+      "case": "Holder på tydelighet og føles trygg for frivillige, men er lite særpreget.",
+      "risk": "Nær kategoristandarden; lys flate i mørk foajé.",
+      "html": ".impeccable/mocks/decision/r1-warm.html",
+      "htmlFrame": "390x844",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-warm-consumer-app-surface-hero.webp"
+    },
+    {
+      "id": "challenger-zoo",
+      "label": "Dyrepark-kart",
+      "verdict": "declined",
+      "lineage": "Flatfargede guidekart",
+      "thesis": "Varegrupper som fargede øyer.",
+      "palette": ["#f5f1e4", "#8ed462", "#2c2e2a", "#ff705d"],
+      "materials": ["flate farger", "kystlinjer"],
+      "viewport": "Én øy per skjerm.",
+      "case": "Fast palett krasjer med butikkens temafarge, og øyer skjuler varer.",
+      "risk": "Lekent på bekostning av fart.",
+      "kept": "Én bevegelsesgrammatikk med ett lite overslag."
+    },
+    {
+      "id": "challenger-orienteering",
+      "label": "Orienteringskart",
+      "verdict": "declined",
+      "lineage": "ISOM-kart med lilla løype",
+      "thesis": "Varer som poster på et kart.",
+      "palette": ["#ffffff", "#9fc56b", "#b5651d", "#a2228a"],
+      "materials": ["koter", "lilla løype"],
+      "viewport": "Kart med poster.",
+      "case": "Ingen terreng å vise; frivillige kjenner det ikke igjen her.",
+      "risk": "Kostyme.",
+      "kept": "Én farge reservert for det aktive."
+    },
+    {
+      "id": "challenger-botanical",
+      "label": "Botanisk folio",
+      "verdict": "declined",
+      "lineage": "Botaniske plansjer",
+      "thesis": "Varer som plansjer i samme skala.",
+      "palette": ["#f3ecdc", "#3f6b3a", "#b3261e", "#6d6a63"],
+      "materials": ["kremplansjer", "sepialinjer"],
+      "viewport": "Plansjer på rad.",
+      "case": "Rolig og vakker, men tregt og uten salgsenergi.",
+      "risk": "For stille for en kø.",
+      "kept": "Samme bildeutsnitt og skala på alle varer."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": true,
+  "canonCard": {
+    "label": "Kategoristandarden",
+    "thesis": "En ren, lys kasse slik SumUp/Square-apper ser ut, gjort skikkelig.",
+    "palette": ["#ffffff", "#f4f4f5", "#18181b", "#f07c23"],
+    "materials": ["hvitt rutenett", "produktbilder", "temafarge på hovedknapp"],
+    "viewport": "Lyse produktkort i rutenett, hvit kurvstripe nederst med total og oransje «Fullfør salg».",
+    "risk": "Kan ikke skilles fra konkurrentene, og hvitt blender i dempet foajé.",
+    "html": ".impeccable/mocks/decision/r1-canon.html",
+    "htmlFrame": "390x844"
+  },
+  "steer": true
+}

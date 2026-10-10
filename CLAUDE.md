@@ -49,6 +49,7 @@ Se `docs/PLAN.md` for full plan og faser.
 - REST API validerer ikke lager ved ordreopprettelse. Sjekk ferske lagertall server-side før ordren opprettes, og returner tydelig feil ved for lite lager.
 - Ingen billing-e-post på ordren → ingen kunde-e-post sendes.
 - Angre salg: sett ordren til `cancelled` (gjenoppretter lager). Brukes fra «Siste salg»-listen.
+- Delt hosting kan svare 429 ved mange kall tett: `wooFetch` prøver GET på nytt med pause, og `getPosItems()` mellomlagres 20 s (tømmes etter salg). `checkStock()` er alltid fersk.
 - Noen hostere (f.eks. One.com) stripper Authorization-headeren. Fall da tilbake til `consumer_key`/`consumer_secret` som query-parametre (kun HTTPS).
 
 ## Design
@@ -60,6 +61,7 @@ Prosjektet har disse skillene i `.claude/skills`:
 Ved konflikt gjelder rekkefølgen over. Mobilkasse er et arbeidsverktøy som brukes i farten: lesbarhet, hastighet og trygghet går foran pynt. Animasjoner skal være korte og aldri forsinke et salg.
 
 ## UI-prinsipper
+- Designsystem: se `DESIGN.md` (tokens i `app/globals.css`) og `PRODUCT.md`. Retningen for kasse-skjermen ligger i `.impeccable/surfaces/app-page-tsx.md`.
 - Mobil først, store trykkflater (min 56px), fungerer med én hånd
 - Norsk tekst i hele appen
 - Butikkens navn/logo/temafarge fra config øverst
