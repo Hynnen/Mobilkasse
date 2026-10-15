@@ -26,7 +26,7 @@ Selgere (på arrangementer, i resepsjonen, på forestillinger) skal kunne regist
 - [ ] Deploy til Vercel, env-variabler, test på mobil
 
 ## Fase 2: Nyttig etter første arrangement
-- [ ] «Siste salg» (dagens ordre med `_mobilkasse_kanal = over-disk`) med mulighet til å angre (→ `cancelled`)
+- [x] «Siste salg» (30 dager + søk på ordrenummer) med retur og bytte (refusjon i WooCommerce, tilbakebetaling manuelt på Vipps)
 - [ ] Felt for arrangementnavn (lagres i localStorage og legges på ordren som meta + customer_note)
 - [ ] Dagsoppgjør: antall salg og sum per arrangement/dag, for avstemming mot Vipps
 - [ ] Søk/filter når produktlisten blir lang

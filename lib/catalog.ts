@@ -8,7 +8,7 @@ import {
   getVariation,
   listProducts,
   listVariations,
-  WooError,
+  orNullOn404,
   type WooProduct,
   type WooVariation,
 } from './woo';
@@ -196,15 +196,6 @@ async function loadPosItems(): Promise<PosItem[]> {
 }
 
 // ---------- Lagersjekk før salg ----------
-
-async function orNullOn404<T>(promise: Promise<T>): Promise<T | null> {
-  try {
-    return await promise;
-  } catch (err) {
-    if (err instanceof WooError && err.status === 404) return null;
-    throw err;
-  }
-}
 
 /**
  * Henter ferske produkt- og variantdata for kurven og sjekker lager.

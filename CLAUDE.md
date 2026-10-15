@@ -28,6 +28,8 @@ Se `docs/PLAN.md` for full plan og faser.
 - `proxy.ts` (Next 16 sitt navn på middleware): beskytter alt unntatt `/login`, manifest, ikoner og statiske filer
 - `app/api/products` GET → produkter for kassen (inkl. varianter)
 - `app/api/sale` POST → validerer kurv, oppretter ordre
+- `app/api/orders` GET → «Siste salg» (30 dager, eller `?q=ordrenummer`), `app/api/orders/[id]` GET → salg med returnerbare linjer
+- `app/api/return` POST → retur eller bytte
 
 ## WooCommerce-detaljer
 - Produkter: `GET /products?status=publish&per_page=100` (paginer via `X-WP-TotalPages`). Kun produkter i kategorien `WOO_POS_CATEGORY` vises, hvis satt.
@@ -48,7 +50,7 @@ Se `docs/PLAN.md` for full plan og faser.
   `set_paid: true` → WooCommerce reduserer lager selv. IKKE trekk lager manuelt i tillegg.
 - REST API validerer ikke lager ved ordreopprettelse. Sjekk ferske lagertall server-side før ordren opprettes, og returner tydelig feil ved for lite lager.
 - Ingen billing-e-post på ordren → ingen kunde-e-post sendes.
-- Angre salg: sett ordren til `cancelled` (gjenoppretter lager). Brukes fra «Siste salg»-listen.
+- Retur og bytte (fra «Siste salg», `app/api/return`): registreres som refusjon, `POST /orders/{id}/refunds` med `api_refund: false` (Vipps tilbakebetales manuelt) og `api_restock: true` (lageret går opp igjen). Salget blir stående i rapportene, og WooCommerce setter ordren til «Refundert» når alt er returnert. Bytte = ny ordre for de nye varene (lagersjekk først), deretter refusjon på den gamle. Kassen viser mellomlegget eller beløpet som skal tilbake. Allerede returnert antall regnes ut fra refusjonene (`lib/returns.ts`), og beløpet regnes likt i kassen og på serveren (`lib/sales.ts`).
 - Delt hosting kan svare 429 ved mange kall tett: `wooFetch` prøver GET på nytt med pause, og `getPosItems()` ligger i delt cache (`'use cache: remote'`, tag `pos-catalog`: fersk 30 s, så stale-while-revalidate, utløper etter 1 t). Etter salg oppdateres den i bakgrunnen og kassen trekker solgt antall lokalt; «Oppdater» bruker `getPosItemsFresh()`. `checkStock()` er alltid fersk.
 - Noen hostere (f.eks. One.com) stripper Authorization-headeren. Fall da tilbake til `consumer_key`/`consumer_secret` som query-parametre (kun HTTPS).
 

@@ -61,14 +61,49 @@ export type WooOrderStatus =
   | 'refunded'
   | 'failed';
 
+export type WooOrderLineItem = {
+  id: number;
+  name: string;
+  product_id: number;
+  variation_id: number;
+  quantity: number;
+  /** Linjesum eks. mva (etter rabatt) */
+  total: string;
+  total_tax: string;
+  taxes: { id: number; total: string }[];
+};
+
 export type WooOrder = {
   id: number;
   number: string;
   status: WooOrderStatus;
   total: string;
   date_created: string;
+  /** UTC uten tidssone-suffiks */
+  date_created_gmt: string;
   customer_note: string;
-  line_items: { id: number; name: string; product_id: number; variation_id: number; quantity: number; total: string }[];
+  payment_method: string;
+  line_items: WooOrderLineItem[];
+  /** Totaler er negative strenger («-299.00») */
+  refunds: { id: number; reason: string; total: string }[];
+};
+
+export type WooRefund = {
+  id: number;
+  amount: string;
+  reason: string;
+  /** Antall og beløp er negative */
+  line_items: { id: number; product_id: number; variation_id: number; quantity: number; total: string }[];
+};
+
+export type CreateRefundInput = {
+  amount: string;
+  reason: string;
+  /** false: WooCommerce skal ikke prøve å betale tilbake via betalingsløsningen (Vipps gjøres manuelt). */
+  api_refund: false;
+  /** Varene legges tilbake på lager (standard i WooCommerce, men sendes eksplisitt) */
+  api_restock: true;
+  line_items: { id: number; quantity: number; refund_total: number; refund_tax: { id: number; refund_total: number }[] }[];
 };
 
 export type OrderLine = { product_id: number; variation_id: number; quantity: number };
@@ -83,6 +118,7 @@ export type CreateOrderInput = {
   customer_note?: string;
 };
 
+export const ORDER_PAYMENT_METHOD = 'vipps_over_disk';
 export const ORDER_CHANNEL_META_KEY = '_mobilkasse_kanal';
 export const ORDER_CHANNEL_VALUE = 'over-disk';
 
@@ -150,6 +186,16 @@ async function request(
       0,
       timedOut ? 'timeout' : 'network_error',
     );
+  }
+}
+
+/** 404 → null, andre feil kastes videre. */
+export async function orNullOn404<T>(promise: Promise<T>): Promise<T | null> {
+  try {
+    return await promise;
+  } catch (err) {
+    if (err instanceof WooError && err.status === 404) return null;
+    throw err;
   }
 }
 
@@ -271,7 +317,7 @@ export async function createOrder(lines: OrderLine[], note?: string): Promise<Wo
   const body: CreateOrderInput = {
     status: 'completed',
     set_paid: true,
-    payment_method: 'vipps_over_disk',
+    payment_method: ORDER_PAYMENT_METHOD,
     payment_method_title: 'Vipps over disk',
     line_items: lines,
     meta_data: [{ key: ORDER_CHANNEL_META_KEY, value: ORDER_CHANNEL_VALUE }],
@@ -280,7 +326,37 @@ export async function createOrder(lines: OrderLine[], note?: string): Promise<Wo
   return (await wooFetch<WooOrder>('/orders', { method: 'POST', body })).data;
 }
 
-/** Brukes i fase 2 (angre salg → cancelled gjenoppretter lager). */
+export async function getOrder(id: number): Promise<WooOrder> {
+  return (await wooFetch<WooOrder>(`/orders/${id}`)).data;
+}
+
+export type ListOrdersParams = {
+  after?: string;
+  search?: string;
+  status?: string;
+  per_page?: number;
+  orderby?: 'date' | 'id';
+  order?: 'asc' | 'desc';
+};
+
+/** Én side med ordre (ikke paginert). */
+export async function listOrders(params: ListOrdersParams): Promise<WooOrder[]> {
+  return (await wooFetch<WooOrder[]>('/orders', { query: params })).data;
+}
+
+export function listRefunds(orderId: number): Promise<WooRefund[]> {
+  return wooFetchAll<WooRefund>(`/orders/${orderId}/refunds`);
+}
+
+/**
+ * Registrerer en refusjon på ordren. Med `api_restock` legger WooCommerce
+ * varene tilbake på lager; når alt er refundert blir ordren «Refundert».
+ */
+export async function createRefund(orderId: number, body: CreateRefundInput): Promise<WooRefund> {
+  return (await wooFetch<WooRefund>(`/orders/${orderId}/refunds`, { method: 'POST', body })).data;
+}
+
+/** Ikke i bruk: retur går via refusjon, som beholder salget i rapportene. */
 export async function updateOrderStatus(id: number, status: WooOrderStatus): Promise<WooOrder> {
   return (await wooFetch<WooOrder>(`/orders/${id}`, { method: 'PUT', body: { status } })).data;
 }

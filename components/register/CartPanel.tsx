@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronUp, LoaderCircle, Minus, Plus, Trash2 } from 'lucide-react';
+import { ArrowLeftRight, ChevronUp, LoaderCircle, Minus, Plus, Trash2, X } from 'lucide-react';
 import { maxQuantity, type CartLine } from '@/lib/cart';
 import { formatKr } from '@/lib/money';
 import { useScrollLock } from '@/lib/use-scroll-lock';
 
 export type CartNotice = { tone: 'danger' | 'warn'; title: string; body?: string };
+
+/** Byttemodus: returnerte varer trekkes fra, og summen viser mellomlegget. */
+export type CartExchange = { number: string; returnOre: number; itemCount: number; onCancel: () => void };
 
 type Props = {
   lines: CartLine[];
@@ -20,12 +23,21 @@ type Props = {
   onRemove: (key: string) => void;
   onClear: () => void;
   onSubmit: () => void;
+  exchange?: CartExchange | null;
 };
+
+/** «Kunden betaler», «Gi tilbake på Vipps» eller «Går opp i opp» ved bytte. */
+function dueLabel(dueOre: number): string {
+  if (dueOre > 0) return 'Kunden betaler';
+  if (dueOre < 0) return 'Gi tilbake på Vipps';
+  return 'Går opp i opp';
+}
 
 /** Kurv: flytende kapsel nederst på telefon/stående nettbrett, fast sidepanel på store skjermer. */
 export function CartPanel(props: Props) {
   const [open, setOpen] = useState(false);
-  const { lines, count, problemKeys } = props;
+  const { lines, count, problemKeys, exchange } = props;
+  const dueOre = props.totalOre - (exchange?.returnOre ?? 0);
 
   // Ved lagerfeil: vis linjene, så selgeren ser hvilken vare det gjelder.
   const [seenProblems, setSeenProblems] = useState(problemKeys);
@@ -52,6 +64,7 @@ export function CartPanel(props: Props) {
             </div>
           )}
           <div className="flex flex-col gap-3 px-4 pb-4 pt-3">
+            {exchange && <ExchangeBar exchange={exchange} />}
             {props.notice && <Notice notice={props.notice} />}
             <button
               type="button"
@@ -61,13 +74,19 @@ export function CartPanel(props: Props) {
               aria-label={count === 0 ? undefined : expanded ? 'Skjul kurven' : 'Vis kurven'}
               className="-mx-1 flex min-h-12 items-center justify-between rounded-xl px-1 text-left disabled:cursor-default"
             >
-              <span className="flex items-center gap-1.5 text-[15px] font-bold text-ink-2">
-                {count === 0 ? 'Trykk på en vare for å starte' : `${count} ${count === 1 ? 'vare' : 'varer'}`}
+              <span className={`flex items-center gap-1.5 text-[15px] font-bold ${exchange && dueOre < 0 && count > 0 ? 'text-danger' : 'text-ink-2'}`}>
+                {exchange
+                  ? count === 0
+                    ? 'Legg til nye varer'
+                    : dueLabel(dueOre)
+                  : count === 0
+                    ? 'Trykk på en vare for å starte'
+                    : `${count} ${count === 1 ? 'vare' : 'varer'}`}
                 {count > 0 && (
                   <ChevronUp aria-hidden className={`size-5 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} strokeWidth={2.5} />
                 )}
               </span>
-              <Total totalOre={props.totalOre} />
+              <Total totalOre={Math.abs(dueOre)} />
             </button>
             <SubmitButton {...props} />
           </div>
@@ -79,12 +98,12 @@ export function CartPanel(props: Props) {
         {/* Kortet vokser med linjene og står forankret nederst, nær tommelen. */}
         <div className="flex max-h-full min-h-0 flex-col overflow-hidden rounded-[26px] bg-card shadow-float">
         <div className="flex items-baseline justify-between px-5 pb-2 pt-5">
-          <h2 className="text-xl font-extrabold">Kurv</h2>
+          <h2 className="text-xl font-extrabold">{exchange ? 'Bytte' : 'Kurv'}</h2>
           <span className="text-[15px] font-bold text-ink-2">{count} {count === 1 ? 'vare' : 'varer'}</span>
         </div>
         {lines.length === 0 ? (
           <p className="px-8 py-10 text-center text-[15px] text-ink-2">
-            Trykk på en vare for å legge den i kurven.
+            {exchange ? 'Legg til varene kunden bytter til.' : 'Trykk på en vare for å legge den i kurven.'}
           </p>
         ) : (
           <div className="flex min-h-0 flex-col">
@@ -92,10 +111,13 @@ export function CartPanel(props: Props) {
           </div>
         )}
         <div className="flex flex-col gap-3 border-t border-line px-5 pb-5 pt-4">
+          {exchange && <ExchangeBar exchange={exchange} />}
           {props.notice && <Notice notice={props.notice} />}
           <div className="flex items-end justify-between">
-            <span className="pb-1.5 text-[15px] font-bold text-ink-2">Å betale</span>
-            <Total totalOre={props.totalOre} />
+            <span className={`pb-1.5 text-[15px] font-bold ${exchange && dueOre < 0 ? 'text-danger' : 'text-ink-2'}`}>
+              {exchange ? dueLabel(dueOre) : 'Å betale'}
+            </span>
+            <Total totalOre={Math.abs(dueOre)} />
           </div>
           <SubmitButton {...props} />
         </div>
@@ -115,7 +137,29 @@ function Total({ totalOre }: { totalOre: number }) {
   );
 }
 
-function SubmitButton({ lines, submitting, onSubmit }: Props) {
+function ExchangeBar({ exchange }: { exchange: CartExchange }) {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl bg-surface py-1.5 pl-4 pr-1.5">
+      <ArrowLeftRight aria-hidden className="size-5 shrink-0 text-ink-2" strokeWidth={2.5} />
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[15px] font-bold">Bytte fra ordre {exchange.number}</p>
+        <p className="tabular truncate text-[13px] text-ink-2">
+          Retur {exchange.itemCount} {exchange.itemCount === 1 ? 'vare' : 'varer'} · −{formatKr(exchange.returnOre)}
+        </p>
+      </div>
+      <button
+        type="button"
+        onClick={exchange.onCancel}
+        aria-label="Avbryt bytte"
+        className="press grid size-12 shrink-0 place-items-center rounded-full text-ink-2"
+      >
+        <X className="size-5" strokeWidth={2.5} />
+      </button>
+    </div>
+  );
+}
+
+function SubmitButton({ lines, submitting, onSubmit, exchange }: Props) {
   return (
     <button
       type="button"
@@ -124,7 +168,7 @@ function SubmitButton({ lines, submitting, onSubmit }: Props) {
       className="press flex h-16 w-full items-center justify-center gap-2 rounded-full bg-action text-[19px] font-extrabold text-action-ink shadow-card disabled:bg-surface disabled:text-ink-2 disabled:shadow-none"
     >
       {submitting && <LoaderCircle aria-hidden className="size-5 animate-spin" strokeWidth={2.5} />}
-      {submitting ? 'Registrerer salget …' : 'Fullfør salg'}
+      {exchange ? (submitting ? 'Registrerer byttet …' : 'Fullfør bytte') : submitting ? 'Registrerer salget …' : 'Fullfør salg'}
     </button>
   );
 }

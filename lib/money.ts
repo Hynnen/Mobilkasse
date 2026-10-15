@@ -19,3 +19,6 @@ const withOre = new Intl.NumberFormat('nb-NO', { style: 'currency', currency: 'N
 export function formatKr(ore: number): string {
   return (ore % 100 === 0 ? whole : withOre).format(ore / 100);
 }
+
+/** 29950 → «299.50» (desimalformatet WooCommerce forventer) */
+export const toDecimal = (ore: number): string => (ore / 100).toFixed(2);

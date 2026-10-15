@@ -6,17 +6,28 @@ import { formatKr } from '@/lib/money';
 
 const AUTO_CLOSE_MS = 6000;
 
-type Props = { orderNumber: string; totalOre: number; onDone: () => void };
+type Props = {
+  title: string;
+  /** Tekst over beløpet, f.eks. «Gi tilbake på Vipps» */
+  lead?: string;
+  amountOre: number | null;
+  caption: string;
+  /** Av når selgeren må gjøre noe etterpå (betale tilbake på Vipps): skjermen står til den lukkes. */
+  autoClose?: boolean;
+  doneLabel?: string;
+  onDone: () => void;
+};
 
-/** Grønn fullskjerm etter fullført salg. Lukkes med «Neste kunde» eller automatisk. */
-export function SaleSuccess({ orderNumber, totalOre, onDone }: Props) {
+/** Grønn fullskjerm etter fullført salg, retur eller bytte. */
+export function SaleSuccess({ title, lead, amountOre, caption, autoClose = true, doneLabel = 'Neste kunde', onDone }: Props) {
   const button = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     button.current?.focus();
+    if (!autoClose) return;
     const timer = setTimeout(onDone, AUTO_CLOSE_MS);
     return () => clearTimeout(timer);
-  }, [onDone]);
+  }, [onDone, autoClose]);
 
   return (
     <div
@@ -29,9 +40,12 @@ export function SaleSuccess({ orderNumber, totalOre, onDone }: Props) {
         <Check aria-hidden className="size-16" strokeWidth={3} />
       </div>
       <div>
-        <h1 id="sale-title" className="text-3xl font-extrabold">Salg registrert</h1>
-        <p className="tabular mt-3 text-6xl font-extrabold tracking-[-0.02em]">{formatKr(totalOre)}</p>
-        <p className="tabular mt-3 text-lg font-semibold text-white/85">Ordre {orderNumber}</p>
+        <h1 id="sale-title" className="text-3xl font-extrabold">{title}</h1>
+        {lead && <p className="mt-5 text-xl font-extrabold">{lead}</p>}
+        {amountOre !== null && (
+          <p className={`tabular text-6xl font-extrabold tracking-[-0.02em] ${lead ? 'mt-1' : 'mt-3'}`}>{formatKr(amountOre)}</p>
+        )}
+        <p className="tabular mt-3 text-lg font-semibold text-white/85">{caption}</p>
       </div>
       <button
         ref={button}
@@ -39,7 +53,7 @@ export function SaleSuccess({ orderNumber, totalOre, onDone }: Props) {
         onClick={onDone}
         className="press h-16 w-full max-w-sm rounded-full bg-white text-[19px] font-extrabold text-success"
       >
-        Neste kunde
+        {doneLabel}
       </button>
     </div>
   );
