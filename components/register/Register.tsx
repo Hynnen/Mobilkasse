@@ -11,6 +11,7 @@ import { formatKr } from '@/lib/money';
 import { groupByProduct, type ProductGroup } from '@/lib/products';
 import { CartPanel, type CartNotice } from './CartPanel';
 import { LogoutSheet } from './LogoutSheet';
+import { PaymentSheet } from './PaymentSheet';
 import { ProductCard } from './ProductCard';
 import { RecentSalesSheet, type Exchange, type ReturnedItem } from './RecentSalesSheet';
 import { SaleSuccess } from './SaleSuccess';
@@ -37,6 +38,7 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [showSales, setShowSales] = useState(false);
   const [exchange, setExchange] = useState<Exchange | null>(null);
+  const [confirmPayment, setConfirmPayment] = useState(false);
 
   // Utsolgte vises grået ut, men sist, så salgbare varer er først i køen.
   const groups = useMemo(
@@ -46,6 +48,8 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
   const lines = useMemo(() => cartLines(cart, items), [cart, items]);
   const totalOre = cartTotalOre(lines);
   const count = cartCount(lines);
+  // Det kunden skal Vippse; ved bytte trekkes returen fra.
+  const dueOre = totalOre - (exchange?.returnOre ?? 0);
   const sheetGroup = groups.find((g) => g.productId === sheetProductId) ?? null;
 
   /** Endring i kurven betyr at en gammel feilmelding ikke lenger gjelder. */
@@ -201,6 +205,14 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
   const finishSuccess = useCallback(() => setSuccess(null), []);
   const closeLogout = useCallback(() => setConfirmLogout(false), []);
   const closeSales = useCallback(() => setShowSales(false), []);
+  const closePayment = useCallback(() => setConfirmPayment(false), []);
+
+  /** Skal kunden betale, må selgeren bekrefte at Vippsen har kommet før noe registreres. */
+  function requestSubmit() {
+    if (lines.length === 0 || submitting) return;
+    if (dueOre > 0) setConfirmPayment(true);
+    else void submit();
+  }
 
   return (
     <div className="flex min-h-dvh">
@@ -276,7 +288,7 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
         onDec={(key) => change({ type: 'dec', key })}
         onRemove={(key) => change({ type: 'remove', key })}
         onClear={() => change({ type: 'clear' })}
-        onSubmit={() => void submit()}
+        onSubmit={requestSubmit}
         exchange={
           exchange && {
             number: exchange.number,
@@ -296,6 +308,17 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
             setSheetProductId(null);
           }}
           onClose={() => setSheetProductId(null)}
+        />
+      )}
+
+      {confirmPayment && (
+        <PaymentSheet
+          amountOre={dueOre}
+          onConfirm={() => {
+            setConfirmPayment(false);
+            void submit();
+          }}
+          onClose={closePayment}
         />
       )}
 
