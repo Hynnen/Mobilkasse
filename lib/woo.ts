@@ -286,6 +286,20 @@ export async function getVariation(productId: number, variationId: number): Prom
   return (await wooFetch<WooVariation>(`/products/${productId}/variations/${variationId}`)).data;
 }
 
+/**
+ * Setter lagerantallet og slår på lagerstyring. WooCommerce oppdaterer
+ * «På lager»/«Utsolgt» selv ut fra tallet.
+ */
+export async function setProductStock(id: number, quantity: number): Promise<WooProduct> {
+  const body = { manage_stock: true, stock_quantity: quantity };
+  return (await wooFetch<WooProduct>(`/products/${id}`, { method: 'PUT', body })).data;
+}
+
+export async function setVariationStock(productId: number, variationId: number, quantity: number): Promise<WooVariation> {
+  const body = { manage_stock: true, stock_quantity: quantity };
+  return (await wooFetch<WooVariation>(`/products/${productId}/variations/${variationId}`, { method: 'PUT', body })).data;
+}
+
 export type TermRef = { kind: 'category' | 'tag'; id: number };
 
 const termCache = new Map<string, TermRef | null>();

@@ -1,8 +1,9 @@
 'use client';
 
 import { useCallback, useMemo, useReducer, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { LogOut, ReceiptText, RefreshCw } from 'lucide-react';
+import { Boxes, LogOut, ReceiptText, RefreshCw } from 'lucide-react';
 import type { ReturnRequest, ReturnResponse } from '@/app/api/return/route';
 import type { SaleRequest, SaleResponse } from '@/app/api/sale/route';
 import type { PosItem, StockProblem } from '@/lib/catalog';
@@ -17,7 +18,7 @@ import { RecentSalesSheet, type Exchange, type ReturnedItem } from './RecentSale
 import { SaleSuccess } from './SaleSuccess';
 import { VariantSheet } from './VariantSheet';
 
-type Props = { initialItems: PosItem[]; storeName: string; logoUrl?: string };
+type Props = { initialItems: PosItem[]; storeName: string; logoUrl?: string; stockEnabled: boolean };
 
 type SubmitResult = SaleResponse | ReturnResponse | { ok: false; error: 'sale_unknown' | 'offline'; message: string };
 
@@ -25,7 +26,7 @@ type Success = Omit<Parameters<typeof SaleSuccess>[0], 'onDone'>;
 
 const buzz = (ms: number | number[]) => navigator.vibrate?.(ms);
 
-export function Register({ initialItems, storeName, logoUrl }: Props) {
+export function Register({ initialItems, storeName, logoUrl, stockEnabled }: Props) {
   const router = useRouter();
   const [items, setItems] = useState(initialItems);
   const [cart, dispatch] = useReducer(cartReducer, {});
@@ -217,12 +218,21 @@ export function Register({ initialItems, storeName, logoUrl }: Props) {
   return (
     <div className="flex min-h-dvh">
       <div className="min-w-0 flex-1">
-        <header className="sticky top-0 z-20 flex h-16 items-center gap-3 bg-ground/90 px-4 backdrop-blur-md md:px-6">
+        <header className="sticky top-0 z-20 flex h-16 items-center gap-2 bg-ground/90 px-4 backdrop-blur-md sm:gap-3 md:px-6">
           {logoUrl && (
             // eslint-disable-next-line @next/next/no-img-element -- logo fra butikkens egen URL, vilkårlig vert
             <img src={logoUrl} alt="" className="size-9 rounded-full object-cover" />
           )}
           <h1 className="min-w-0 flex-1 truncate text-[19px] font-extrabold">{storeName}</h1>
+          {stockEnabled && (
+            <Link
+              href="/lager"
+              aria-label="Lager: endre antall"
+              className="press grid size-12 shrink-0 place-items-center rounded-full bg-card text-ink shadow-card"
+            >
+              <Boxes aria-hidden className="size-5" strokeWidth={2.25} />
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => setShowSales(true)}

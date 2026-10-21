@@ -19,7 +19,8 @@ export type AppConfig = {
     posCategory?: string;
     authMode: AuthMode;
   };
-  auth: { pin: string; sessionSecret: string };
+  /** stockPin: egen kode for lagerendring. Ikke satt = lagerskjermen er av. */
+  auth: { pin: string; stockPin?: string; sessionSecret: string };
 };
 
 export class ConfigError extends Error {
@@ -41,6 +42,11 @@ const secureUrl = z
   })
   .transform((u) => u.replace(/\/+$/, ''));
 
+const pinSchema = z
+  .string()
+  .refine((v) => v === v.trim(), { error: 'kan ikke starte eller slutte med mellomrom' })
+  .refine((v) => v.length >= 6 && v.length <= 64, { error: 'må være 6–64 tegn' });
+
 const envSchema = z.object({
   STORE_NAME: z.string().trim().min(1, { error: 'mangler' }),
   STORE_SHORT_NAME: optional(z.string().trim().max(12, { error: 'maks 12 tegn' })),
@@ -56,11 +62,13 @@ const envSchema = z.object({
   WOO_AUTH_MODE: optional(z.enum(['auto', 'header', 'query'])),
 
   // Kode for innlogging: sifre, bokstaver eller en frase. Lang kode = vanskelig å gjette.
-  POS_PIN: z
-    .string()
-    .refine((v) => v === v.trim(), { error: 'kan ikke starte eller slutte med mellomrom' })
-    .refine((v) => v.length >= 6 && v.length <= 64, { error: 'må være 6–64 tegn' }),
+  POS_PIN: pinSchema,
+  // Egen kode for å endre lager. Ikke satt = lagerskjermen er skrudd av.
+  STOCK_PIN: optional(pinSchema),
   SESSION_SECRET: z.string().min(32, { error: 'må være minst 32 tegn' }),
+}).refine((env) => env.STOCK_PIN === undefined || env.STOCK_PIN.normalize('NFC') !== env.POS_PIN.normalize('NFC'), {
+  path: ['STOCK_PIN'],
+  error: 'må være forskjellig fra POS_PIN',
 });
 
 let cached: AppConfig | undefined;
@@ -98,7 +106,7 @@ export function getConfig(): AppConfig {
       posCategory: env.WOO_POS_CATEGORY,
       authMode: env.WOO_AUTH_MODE ?? 'auto',
     },
-    auth: { pin: env.POS_PIN, sessionSecret: env.SESSION_SECRET },
+    auth: { pin: env.POS_PIN, stockPin: env.STOCK_PIN, sessionSecret: env.SESSION_SECRET },
   };
   return cached;
 }
@@ -106,6 +114,15 @@ export function getConfig(): AppConfig {
 /** Om innloggingskoden bare består av sifre (styrer tastaturet på innloggingssiden). */
 export function isNumericPin(): boolean {
   return /^\d+$/.test(getConfig().auth.pin);
+}
+
+/** Lagerskjermen er bare på når STOCK_PIN er satt. */
+export function isStockEnabled(): boolean {
+  return getConfig().auth.stockPin !== undefined;
+}
+
+export function isNumericStockPin(): boolean {
+  return /^\d+$/.test(getConfig().auth.stockPin ?? '');
 }
 
 /** Trygt å sende til klienten (manifest, UI). */

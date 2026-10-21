@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { connection } from 'next/server';
 import { getPosItems, type PosItem } from '@/lib/catalog';
-import { getPublicStoreConfig } from '@/lib/config';
+import { getPublicStoreConfig, isStockEnabled } from '@/lib/config';
 import { Register } from '@/components/register/Register';
 import { LoadError } from '@/components/register/LoadError';
 
@@ -25,7 +25,7 @@ async function RegisterLoader() {
     return <LoadError storeName={store.name} />;
   }
 
-  return <Register initialItems={items} storeName={store.name} logoUrl={store.logoUrl} />;
+  return <Register initialItems={items} storeName={store.name} logoUrl={store.logoUrl} stockEnabled={isStockEnabled()} />;
 }
 
 function RegisterSkeleton() {

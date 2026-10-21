@@ -26,8 +26,12 @@ export type PosItem = {
   stock: number | null; // null = ikke lagerstyrt
   inStock: boolean;
   backorder: boolean; // restordre tillatt: kan selges selv om lageret er tomt
+  /** Hvor lagertallet ligger: på varianten, på produktet (delt av variantene) eller ingen steder. */
+  stockOwner: StockOwner;
   image: string | null;
 };
+
+export type StockOwner = 'variation' | 'product' | null;
 
 export type SaleLine = { productId: number; variationId: number; quantity: number };
 
@@ -56,6 +60,7 @@ type ResolvedStock = {
   backorder: boolean;
   /** Hvilket objekt som eier lageret. Varianter med `manage_stock: 'parent'` deler foreldrens beholdning. */
   poolId: number | null;
+  owner: StockOwner;
 };
 
 /**
@@ -70,11 +75,12 @@ export function resolveStock(product: WooProduct, variation?: WooVariation): Res
   if (source) {
     const stock = source.stock_quantity ?? 0;
     const backorder = source.backorders !== 'no';
-    return { stock, backorder, inStock: stock > 0 || backorder, poolId: source.id };
+    const owner = source === product ? 'product' : 'variation';
+    return { stock, backorder, inStock: stock > 0 || backorder, poolId: source.id, owner };
   }
 
   const status = (variation ?? product).stock_status;
-  return { stock: null, backorder: status === 'onbackorder', inStock: status !== 'outofstock', poolId: null };
+  return { stock: null, backorder: status === 'onbackorder', inStock: status !== 'outofstock', poolId: null, owner: null };
 }
 
 /** Største antall som kan selges, eller Infinity hvis lageret ikke begrenser. */
@@ -101,7 +107,7 @@ function toPosItem(product: WooProduct, variation?: WooVariation): PosItem | nul
   const priceOre = toOre((variation ?? product).price);
   if (priceOre === null) return null;
 
-  const { stock, inStock, backorder } = resolveStock(product, variation);
+  const { stock, inStock, backorder, owner } = resolveStock(product, variation);
   const variationId = variation?.id ?? 0;
 
   return {
@@ -114,6 +120,7 @@ function toPosItem(product: WooProduct, variation?: WooVariation): PosItem | nul
     stock,
     inStock,
     backorder,
+    stockOwner: owner,
     image: variation?.image?.src ?? product.images[0]?.src ?? null,
   };
 }

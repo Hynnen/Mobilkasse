@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createSessionToken, SESSION_COOKIE, sessionCookieOptions, verifyPin } from '@/lib/auth';
+import { createSessionToken, SESSION_COOKIE, sessionCookieOptions, STOCK_COOKIE, verifyPin } from '@/lib/auth';
 
 export type LoginState = { error?: string };
 
@@ -22,6 +22,8 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
 }
 
 export async function logout(): Promise<void> {
-  (await cookies()).delete(SESSION_COOKIE);
+  const jar = await cookies();
+  jar.delete(SESSION_COOKIE);
+  jar.delete(STOCK_COOKIE);
   redirect('/login');
 }
