@@ -22,6 +22,7 @@ export type PosItem = {
   variationId: number; // 0 for enkle produkter
   name: string;
   variantLabel: string | null; // «Grønn / M»
+  description: string | null; // variantbeskrivelsen fra WooCommerce, som ren tekst
   priceOre: number;
   stock: number | null; // null = ikke lagerstyrt
   inStock: boolean;
@@ -99,6 +100,25 @@ function isSellableProduct(p: WooProduct): boolean {
   return p.status === 'publish' && p.purchasable && !p.downloadable && SUPPORTED_TYPES.has(p.type);
 }
 
+const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+
+/** WooCommerce lagrer beskrivelser som HTML. Kassen viser dem som ren tekst på én linje. */
+function toPlainText(html: string | undefined): string | null {
+  if (!html) return null;
+  const text = html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e: string) => {
+      if (e[0] === '#') {
+        const code = e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
+        return Number.isFinite(code) ? String.fromCodePoint(code) : m;
+      }
+      return ENTITIES[e.toLowerCase()] ?? m;
+    })
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text || null;
+}
+
 function toPosItem(product: WooProduct, variation?: WooVariation): PosItem | null {
   if (!isSellableProduct(product)) return null;
   if (product.type === 'variable' && !variation) return null;
@@ -116,6 +136,7 @@ function toPosItem(product: WooProduct, variation?: WooVariation): PosItem | nul
     variationId,
     name: product.name,
     variantLabel: variation ? variation.attributes.map((a) => a.option).join(' / ') || null : null,
+    description: variation ? toPlainText(variation.description) : null,
     priceOre,
     stock,
     inStock,

@@ -76,6 +76,9 @@ export function VariantSheet({ group, cart, onPick, onClose }: Props) {
                     <span className={`block text-[17px] font-bold ${!item.inStock ? 'line-through decoration-2' : ''}`}>
                       {item.variantLabel ?? item.name}
                     </span>
+                    {item.description && (
+                      <span className="block text-[14px] leading-snug text-ink">{item.description}</span>
+                    )}
                     <span className="tabular block text-[13px] text-ink-2">
                       {full && item.inStock ? 'Alle i kurven' : stockLabel(item)}
                     </span>

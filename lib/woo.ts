@@ -50,6 +50,8 @@ export type WooVariation = {
   menu_order: number;
   image: WooImage | null;
   attributes: { id: number; name: string; option: string }[];
+  /** Variantbeskrivelse (HTML) */
+  description: string;
 };
 
 export type WooOrderStatus =
